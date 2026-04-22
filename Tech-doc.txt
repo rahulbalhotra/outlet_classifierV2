@@ -1,0 +1,92 @@
+# OnGround AI: Technical & Functional Documentation
+
+## 1. Project Overview
+**OnGround AI** is a high-performance retail intelligence platform designed for Area Sales Officers (ASOs) and Retail Executives. It combines real-time data visualization with a multi-persona Generative AI assistant to provide actionable insights from on-ground market data, imagery, and store metrics.
+
+---
+
+## 2. Technology Stack
+*   **Frontend**: Next.js 16 (React 19), Tailwind CSS 4 (Styling), Lucide React (Icons).
+*   **Mapping**: Leaflet.js with React-Leaflet integration for spatial visualization.
+*   **AI Engine**: Google Gemini API (supporting 1.5 Pro and Flash models).
+*   **Data Processing**: Local JSON-based master database ([retail_store_data_v2.json](cci:7://file:///d:/OutlesClassifier-ChatAssist/retail_store_data_v2.json/d:/OutlesClassifier-ChatAssist/retail_store_data_v2.json:0:0-0:0)).
+*   **Markdown Support**: `react-markdown` with GFM for rich AI responses.
+
+---
+
+## 3. Core Functional Modules
+
+### A. Market Intelligence Dashboard
+*   **KPI Tracking**: Real-time calculation of Active Outlets, Total Revenue, MoM Growth Rate, and Average Sales per Store.
+*   **Interactive Mapping**: A dynamic Leaflet map that renders store clusters. 
+    *   *Feature*: Clicking on market badges (e.g., "Cyber City 8") or Top-Perfoming stores triggers a smooth pan-and-zoom animation to that specific area.
+*   **Sales Trends**: Month-on-Month (MoM) bar charts with automated percentage change indicators.
+
+### B. AI Outlet Classifier
+*   **Image-Based Intelligence**: Analyzes storefront imagery to predict format morphology (Hyper vs. Kirana).
+*   **Self-Correcting Recommendation**: Generates a **Recommended Order Value** by cross-referencing user estimates against the **Average Monthly Order Value (AMOV)** of regional peer stores.
+*   **Benchmark Correlation**: Displays real-time benchmarks with AMOV metrics to provide a direct comparison for on-boarding validation.
+*   **Database Commitment**: Seamlessly onboards validated stores into the master dataset with their classified photo.
+
+### C. OnGround AI Assistant
+*   **Persona System**: Dedicated perspective switching (e.g., "Area Sales Officer") that alters the AI's tone and analytical focus.
+*   **Context Injection**: The assistant automatically receives a 50-record snapshot of the relevant market data to ground its answers in reality.
+*   **Multi-Modal**: Supports image uploads (for shelf-share analysis) and document uploads (CSV/TXT) for external context.
+*   **History & Persistence**: Individual chat sessions are saved to `localStorage`, allowing users to maintain multiple threads simultaneously.
+
+---
+
+## 4. Technical Architecture
+
+### A. Data Flow
+1.  **Stats Pipeline**: The `/api/stats` route reads the master JSON, performs aggregations (filtering by ASO if requested), and returns a structured KPI/Breakdown object.
+2.  **Analysis Pipeline**: The `/api/analyze` route fetches the **System Prompt** from the versioned directory, injects the persona and data snapshot, and calls the Google Generative AI SDK.
+
+### B. System Prompt Versioning
+Prompts are decoupled from the code to allow rapid iteration without redeployment:
+*   **Location**: `/outlet-classifier/prompts/`
+*   **Template**: `v1_aso.md`
+*   **Logic**: Uses double-curly braces (e.g., `{{persona}}`) which are replaced at runtime in the API route.
+
+---
+
+## 5. Development & Maintenance
+
+### Adding a New Persona
+1.  Open `src/components/chat.tsx`.
+2.  Add a new object to the `PERSONAS` constant with a unique ID and description.
+
+### Updating Store Data
+1.  Modify `d:\OutlesClassifier-ChatAssist\retail_store_data_v2.json`.
+2.  The Dashboard and AI Assistant will reflect these changes immediately upon the next refresh/query.
+
+### Changing Map Focus Logic
+*   **Component**: `src/components/store-map.tsx`
+*   **Implementation**: Controlled via the `center` prop using `leafletMap.current.setView()`.
+
+---
+
+## 6. Store Segmentation Logic
+Outlets are categorized into four tiers based on format morphology and actual sales behavior:
+
+*   **Premium**: High-end formats (Hypermarkets/Supermarkets) situated in prime commercial zones. These typically represent the **top 20%** of regional order value and serve high-income demographics.
+*   **Value**: Consistent mid-range performers. Primarily composed of residential Supermarkets and Mid-Size stores with steady, predictable order patterns.
+*   **Mass Market**: Traditional retail (Kirana) and high-frequency outlets. Characterized by high-volume recurring orders and dense traditional market presence.
+*   **Discount**: Commercial wholesale or high-volume models. These focus on low-margin bulk velocity, clearance lots, and high stock turnover.
+
+---
+
+## 7. Directory Structure
+```text
+/outlet-classifier
+├── /prompts          # Versioned System Prompts (Markdown)
+├── /src
+│   ├── /app
+│   │   ├── /api      # Next.js Serverless Routes (Stats, Analyze, ASOS)
+│   │   └── page.tsx  # Main Layout & Tab Navigation
+│   └── /components
+│       ├── chat.tsx       # AI Assistant logic & UI
+│       ├── dashboard.tsx  # KPI & Data Viz logic
+│       └── store-map.tsx  # Leaflet Map implementation
+└── retail_store_data.json # Master Source of Truth
+```
