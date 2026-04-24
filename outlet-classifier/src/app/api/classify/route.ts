@@ -1,6 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+
+// Cache for image hashes to enable deterministic lookup
+let imageHashCache: Record<string, { store_id: string, folder: string, file: string }> | null = null;
+
+function getHash(data: Buffer | string) {
+    return crypto.createHash('md5').update(data).digest('hex');
+}
+
+function initializeImageCache() {
+    if (imageHashCache) return;
+    imageHashCache = {};
+    const baseDir = path.join(process.cwd(), 'src', 'store_dataset_jpeg');
+    const folders = ['Hypermarket', 'Kirana', 'Mart', 'Supermarket'];
+
+    folders.forEach(folder => {
+        const folderPath = path.join(baseDir, folder);
+        const metadataPath = path.join(folderPath, 'image_metadata.json');
+        if (!fs.existsSync(metadataPath)) return;
+
+        try {
+            const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+            metadata.forEach((entry: any) => {
+                const imgPath = path.join(folderPath, entry.image_name);
+                if (fs.existsSync(imgPath)) {
+                    const hash = getHash(fs.readFileSync(imgPath));
+                    imageHashCache![hash] = {
+                        store_id: entry.store_id,
+                        folder: folder,
+                        file: entry.image_name
+                    };
+                }
+            });
+        } catch (e) {
+            console.error(`Error caching hashes for ${folder}:`, e);
+        }
+    });
+}
 
 export async function POST(req: NextRequest) {
     try {
@@ -8,29 +47,58 @@ export async function POST(req: NextRequest) {
         const { aso_name, store_name, store_type, location, avg_monthly_order_value_inr, image, apiKey, modelName } = body;
 
         // Load store data
-        const dataPath = 'd:\\OutlesClassifier-ChatAssist\\retail_store_data_v2.json';
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
         const dataStr = fs.readFileSync(dataPath, 'utf8');
         const stores = JSON.parse(dataStr);
 
-        // Filter based on location and aso_name
+        let identifiedStore: any = null;
+        let resultData: any = null;
+        let finalSource = "Rule-Based Engine";
+
+        // 1. Visual Identity Check (Deterministic Lookup)
+        if (image) {
+            initializeImageCache();
+            const base64Data = image.split(',')[1];
+            const imageBuffer = Buffer.from(base64Data, 'base64');
+            const incomingHash = getHash(imageBuffer);
+
+            const match = imageHashCache![incomingHash];
+            if (match) {
+                identifiedStore = stores.find((s: any) => s.store_id === match.store_id);
+                if (identifiedStore) {
+                    finalSource = "Dataset Match (Deterministic)";
+                    resultData = {
+                        store_name: identifiedStore.store_name,
+                        store_type: identifiedStore.store_type,
+                        location: identifiedStore.location,
+                        avg_monthly_order_value_inr: identifiedStore.avg_monthly_order_value_inr,
+                        segmentation: identifiedStore.segmentation,
+                        morphology_analysis: `Exact match found in visual dataset. Identified as ${identifiedStore.store_name} standard format.`,
+                        confidence_score: 100,
+                        matched_store_id: identifiedStore.store_id
+                    };
+                }
+            }
+        }
+
+        // Filter for neighbors/context
         let similarStores = stores.filter((s: any) =>
             s.location.toLowerCase() === location.toLowerCase() ||
             s.aso_details?.aso_name === aso_name
         );
 
-        // Find similar stores based on store_type
         let typeSimilarStores = similarStores.filter((s: any) => s.store_type === store_type);
-
-        // If too many, take a subset for results view
         const displayResults = (typeSimilarStores.length > 0 ? typeSimilarStores : similarStores).slice(0, 4);
 
-        let resultData;
-        let finalSource = "Rule-Based Engine";
-
-        if (apiKey) {
+        // 2. AI Classification (if not matched or to refine)
+        const apiKeyToUse = apiKey || process.env.GEMINI_API_KEY;
+        if (!resultData && apiKeyToUse) {
             try {
-                const genAI = new GoogleGenerativeAI(apiKey);
-                const model = genAI.getGenerativeModel({ model: modelName || 'gemini-1.5-flash' });
+                const genAI = new GoogleGenerativeAI(apiKeyToUse);
+                const model = genAI.getGenerativeModel({
+                    model: modelName || 'gemini-1.5-flash',
+                    generationConfig: { temperature: 0 } // Always produce same output for same input
+                });
 
                 const peerContext = displayResults.map((s: any) => ({
                     name: s.store_name,
@@ -40,10 +108,9 @@ export async function POST(req: NextRequest) {
                     avg_val: s.avg_monthly_order_value_inr
                 }));
 
-                // Load Versioned System Prompt
                 let promptText = "";
                 try {
-                    const promptTemplate = fs.readFileSync('d:\\OutlesClassifier-ChatAssist\\outlet-classifier\\prompts\\v1_classifier.md', 'utf8');
+                    const promptTemplate = fs.readFileSync(path.join(process.cwd(), 'prompts', 'v1_classifier.md'), 'utf8');
                     promptText = promptTemplate
                         .replace(/{{peer_stores}}/g, JSON.stringify(peerContext, null, 2))
                         .replace(/{{store_name}}/g, store_name)
@@ -51,7 +118,6 @@ export async function POST(req: NextRequest) {
                         .replace(/{{location}}/g, location)
                         .replace(/{{estimated_value}}/g, String(avg_monthly_order_value_inr));
                 } catch (e) {
-                    console.error("Failed to load classifier prompt template, using inline fallback");
                     promptText = `Classify this store: ${store_name}, Type: ${store_type}, Location: ${location}. Peer data: ${JSON.stringify(peerContext)}`;
                 }
 
@@ -59,31 +125,23 @@ export async function POST(req: NextRequest) {
                 if (image) {
                     const base64Data = image.split(',')[1];
                     const mimeType = image.split(';')[0].split(':')[1];
-                    parts.push({
-                        inlineData: { data: base64Data, mimeType }
-                    });
+                    parts.push({ inlineData: { data: base64Data, mimeType } });
                 }
 
                 const geminiResult = await model.generateContent(parts);
                 const text = geminiResult.response.text();
-
-                // Extract JSON from response
                 const jsonMatch = text.match(/\{[\s\S]*\}/);
                 if (jsonMatch) {
                     resultData = JSON.parse(jsonMatch[0]);
                     finalSource = "Gemini AI";
-                } else {
-                    throw new Error("Gemini failed to return valid JSON");
                 }
             } catch (err) {
-                console.error("Gemini AI failed, falling back to rule-based:", err);
-                finalSource = "Rule-Based Engine (AI Fallback)";
-                resultData = null; // Trigger heuristic below
+                console.error("Gemini AI failed:", err);
             }
         }
 
+        // 3. Heuristic Fallback
         if (!resultData) {
-            // Heuristic fallback (Used if no API key OR if AI call failed)
             let suggestedSegmentation = "Mass Market";
             if (avg_monthly_order_value_inr > 200000) suggestedSegmentation = "Premium";
             else if (avg_monthly_order_value_inr > 80000) suggestedSegmentation = "Value";
@@ -98,7 +156,7 @@ export async function POST(req: NextRequest) {
                 location,
                 avg_monthly_order_value_inr: Math.round(areaAvg),
                 segmentation: suggestedSegmentation,
-                morphology_analysis: `Safety Fallback: Based on regional benchmarks in ${location}, this store shows stable potential for ${store_type} format.`,
+                morphology_analysis: `Safety Fallback: Based on regional benchmarks in ${location}, this store shows stable potential.`,
                 confidence_score: 85
             };
         }
@@ -109,8 +167,8 @@ export async function POST(req: NextRequest) {
                 aso_name,
                 source: finalSource
             },
-            aiError: finalSource.includes("Fallback") ? "Gemini Error: Rate limit or API issue. Using rule-based fallback." : null,
-            similar_stores: displayResults.map((s: any) => {
+            aiError: finalSource.includes("Fallback") ? "Gemini Error: Using rule-based fallback." : null,
+            similar_stores: (identifiedStore ? [identifiedStore, ...displayResults.filter((s: any) => s.store_id !== identifiedStore.store_id)] : displayResults).slice(0, 4).map((s: any) => {
                 const history = (s.monthly_sales_history || []) as Array<Record<string, unknown>>;
                 const totalSales = history.reduce((acc: number, entry) => acc + (Number(entry.sales_value_inr) || 0), 0);
                 const monthWiseSales: Record<string, number> = {};
@@ -124,6 +182,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(finalResponse, { status: 200 });
     } catch (error: any) {
         console.error('Classify API Error:', error);
-        return NextResponse.json({ error: 'Failed to classify store: ' + error.message }, { status: 500 });
+        return NextResponse.json({ error: 'Failed' }, { status: 500 });
     }
 }

@@ -3,7 +3,7 @@ import fs from 'fs';
 
 export async function GET() {
     try {
-        const dataPath = 'd:\\OutlesClassifier-ChatAssist\\retail_store_data_v2.json';
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
         const dataStr = fs.readFileSync(dataPath, 'utf8');
         const storeData = JSON.parse(dataStr);
 

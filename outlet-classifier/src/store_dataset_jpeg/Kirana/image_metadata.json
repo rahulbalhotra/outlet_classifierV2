@@ -1,0 +1,255 @@
+[
+    {
+        "store_id": "STR_017",
+        "image_id": "IMG_017",
+        "image_name": "659-pawan-kirana-store-indore-rural.jpg",
+        "store_class": "Kirana Store",
+        "outlet_type": "Kirana Store",
+        "confidence": 0.9429984175163337,
+        "visibility_score": 0.7436181369754183,
+        "cleanliness_score": 0.8077333703759979,
+        "assortment_score": 0.8217071151340338,
+        "brand_presence_score": 0.6009306031389193,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_035",
+        "image_id": "IMG_035",
+        "image_name": "IMG_00 (11).jpeg",
+        "store_class": "Closed Counter",
+        "outlet_type": "Closed Counter",
+        "confidence": 0.8713571551529639,
+        "visibility_score": 0.7168065088007048,
+        "cleanliness_score": 0.7774454236084363,
+        "assortment_score": 0.7408582094061008,
+        "brand_presence_score": 0.7536119777661541,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_020",
+        "image_id": "IMG_020",
+        "image_name": "IMG_00 (12).jpeg",
+        "store_class": "Kirana Store",
+        "outlet_type": "Kirana Store",
+        "confidence": 0.890289151638237,
+        "visibility_score": 0.7046495257138546,
+        "cleanliness_score": 0.6533366775682312,
+        "assortment_score": 0.7224409607296001,
+        "brand_presence_score": 0.7802247284257382,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_005",
+        "image_id": "IMG_005",
+        "image_name": "IMG_00 (13).jpeg",
+        "store_class": "Closed Counter",
+        "outlet_type": "Closed Counter",
+        "confidence": 0.8581493265373061,
+        "visibility_score": 0.7583987387595349,
+        "cleanliness_score": 0.7875502092811013,
+        "assortment_score": 0.8993314987008116,
+        "brand_presence_score": 0.7370229360198828,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_054",
+        "image_id": "IMG_054",
+        "image_name": "IMG_00 (19).jpeg",
+        "store_class": "Closed Counter",
+        "outlet_type": "Closed Counter",
+        "confidence": 0.8968252594141197,
+        "visibility_score": 0.8399014809621471,
+        "cleanliness_score": 0.6837303861863513,
+        "assortment_score": 0.8565788105442574,
+        "brand_presence_score": 0.7330205985356691,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_007",
+        "image_id": "IMG_007",
+        "image_name": "IMG_00 (20).jpg",
+        "store_class": "Closed Counter",
+        "outlet_type": "Closed Counter",
+        "confidence": 0.8846478104674672,
+        "visibility_score": 0.8182981786326997,
+        "cleanliness_score": 0.756478769292757,
+        "assortment_score": 0.8001704841003948,
+        "brand_presence_score": 0.6722847064009088,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_040",
+        "image_id": "IMG_040",
+        "image_name": "IMG_00 (9).jpeg",
+        "store_class": "Kirana Store",
+        "outlet_type": "Kirana Store",
+        "confidence": 0.9321368580426556,
+        "visibility_score": 0.729174767680373,
+        "cleanliness_score": 0.7321705965554774,
+        "assortment_score": 0.707429367859742,
+        "brand_presence_score": 0.6055756188510388,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_041",
+        "image_id": "IMG_041",
+        "image_name": "IMG_20220222_065334-857x1024.jpg",
+        "store_class": "Kirana Store",
+        "outlet_type": "Kirana Store",
+        "confidence": 0.9252326078787754,
+        "visibility_score": 0.7339429315616788,
+        "cleanliness_score": 0.7009636799636282,
+        "assortment_score": 0.7994152327104461,
+        "brand_presence_score": 0.6790106143196808,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_027",
+        "image_id": "IMG_027",
+        "image_name": "a-closeup-of-an-india.jpg",
+        "store_class": "Closed Counter",
+        "outlet_type": "Closed Counter",
+        "confidence": 0.869167158562261,
+        "visibility_score": 0.7296724449086935,
+        "cleanliness_score": 0.6594213032066659,
+        "assortment_score": 0.8543878537056656,
+        "brand_presence_score": 0.7985123686063381,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_013",
+        "image_id": "IMG_013",
+        "image_name": "indian-peering-out-from-counter-at-general-store-bundi-rajasthan-india-T0CKE4.jpg",
+        "store_class": "Kirana Store",
+        "outlet_type": "Kirana Store",
+        "confidence": 0.8854365451763972,
+        "visibility_score": 0.8139897989941314,
+        "cleanliness_score": 0.7633205259521332,
+        "assortment_score": 0.8682634792772207,
+        "brand_presence_score": 0.7224822724858593,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_030",
+        "image_id": "IMG_030",
+        "image_name": "kirana-660.jpg",
+        "store_class": "Kirana Store",
+        "outlet_type": "Kirana Store",
+        "confidence": 0.9342944044291414,
+        "visibility_score": 0.8619883407685749,
+        "cleanliness_score": 0.8070275262397267,
+        "assortment_score": 0.7205556182107906,
+        "brand_presence_score": 0.6560441394385861,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    }
+]

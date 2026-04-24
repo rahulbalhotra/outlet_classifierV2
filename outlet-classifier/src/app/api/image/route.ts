@@ -5,38 +5,81 @@ import path from 'path';
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
-        const preferredType = searchParams.get('type');
+        const preferredType = searchParams.get('type') || '';
         const index = parseInt(searchParams.get('index') || '0');
+        const storeId = `STR_${index.toString().padStart(3, '0')}`;
 
-        const baseDir = 'd:\\OutlesClassifier-ChatAssist\\outlet-classifier\\src\\store_dataset_jpeg';
+        const baseDir = path.join(process.cwd(), 'src', 'store_dataset_jpeg');
 
-        // Get all subdirectories (categories)
-        const categories = fs.readdirSync(baseDir).filter(f => fs.statSync(path.join(baseDir, f)).isDirectory());
+        // Mapping from store_type in JSON to folder names in dataset
+        const typeToFolderMap: Record<string, string> = {
+            'Hypermarket': 'Hypermarket',
+            'Supermarket': 'Supermarket',
+            'Kirana Store': 'Kirana',
+            'Mid-Size Store': 'Supermarket',
+            'Closed Counter': 'Kirana',
+            'Self-Assisted Store': 'Mart',
+            'Kirana': 'Kirana',
+            'Mart': 'Mart'
+        };
 
-        // Collect all images from all categories to allow for "random" variety
-        let allImages: { type: string, file: string }[] = [];
-        categories.forEach(cat => {
-            const files = fs.readdirSync(path.join(baseDir, cat)).filter(f => f.match(/\.(jpg|jpeg|png)$/i));
-            files.forEach(f => allImages.push({ type: cat, file: f }));
-        });
+        const targetFolder = typeToFolderMap[preferredType] || 'Mart';
+        const targetPath = path.join(baseDir, targetFolder);
+        const metadataPath = path.join(targetPath, 'image_metadata.json');
 
-        if (allImages.length === 0) return new NextResponse('No images found', { status: 404 });
+        let selected = { type: targetFolder, file: '' };
 
-        // If preferredType is provided, we can try to weigh it, 
-        // but user asked for "little randomly", so let's just use the index to pick from the global pool
-        // but with a slight preference for the category if it matches.
+        // 1. Try to find mapping in image_metadata.json if it exists
+        if (fs.existsSync(metadataPath)) {
+            try {
+                const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+                const entry = metadata.find((e: any) => e.store_id === storeId);
+                if (entry && entry.image_name) {
+                    selected.file = entry.image_name;
+                }
+            } catch (e) {
+                console.error('Error reading metadata:', e);
+            }
+        }
 
-        // Randomization: use the index to pick from the flattened pool
-        const selectionIndex = (index * 7 + 13) % allImages.length; // Simple deterministic shuffle
-        const selected = allImages[selectionIndex];
+        // 2. Fallback to modulo logic if no metadata match
+        if (!selected.file && fs.existsSync(targetPath)) {
+            const files = fs.readdirSync(targetPath).filter(f => f.match(/\.(jpg|jpeg|png)$/i)).sort();
+            if (files.length > 0) {
+                const fileIndex = index % files.length;
+                selected.file = files[fileIndex];
+            }
+        }
+
+        // 3. Global Fallback
+        if (!selected.file) {
+            const categories = fs.readdirSync(baseDir).filter(f => fs.statSync(path.join(baseDir, f)).isDirectory());
+            let allImages: { type: string, file: string }[] = [];
+            categories.forEach(cat => {
+                const files = fs.readdirSync(path.join(baseDir, cat)).filter(f => f.match(/\.(jpg|jpeg|png)$/i));
+                files.forEach(f => allImages.push({ type: cat, file: f }));
+            });
+
+            if (allImages.length === 0) return new NextResponse('No images found', { status: 404 });
+
+            const fallbackIndex = (index * 13 + 7) % allImages.length;
+            selected = allImages[fallbackIndex];
+        }
 
         const filePath = path.join(baseDir, selected.type, selected.file);
+        if (!fs.existsSync(filePath)) {
+            return new NextResponse('File not found', { status: 404 });
+        }
+
         const fileBuffer = fs.readFileSync(filePath);
         const ext = path.extname(filePath).toLowerCase();
         const contentType = ext === '.png' ? 'image/png' : 'image/jpeg';
 
         return new NextResponse(fileBuffer, {
-            headers: { 'Content-Type': contentType }
+            headers: {
+                'Content-Type': contentType,
+                'Cache-Control': 'public, max-age=31536000, immutable'
+            }
         });
     } catch (error) {
         console.error('Image API Error:', error);

@@ -1,0 +1,163 @@
+[
+    {
+        "store_id": "STR_014",
+        "image_id": "IMG_014",
+        "image_name": "2022-12-13.jpg",
+        "store_class": "Hypermarket",
+        "outlet_type": "Hypermarket",
+        "confidence": 0.8900981850177212,
+        "visibility_score": 0.8202723305370411,
+        "cleanliness_score": 0.8306563876952779,
+        "assortment_score": 0.7141353946966658,
+        "brand_presence_score": 0.6982539542867917,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_001",
+        "image_id": "IMG_001",
+        "image_name": "DMart-1.jpg",
+        "store_class": "Hypermarket",
+        "outlet_type": "Hypermarket",
+        "confidence": 0.9382310477224771,
+        "visibility_score": 0.8224198903180944,
+        "cleanliness_score": 0.7882048559882106,
+        "assortment_score": 0.8242588210244496,
+        "brand_presence_score": 0.6221259880556307,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_004",
+        "image_id": "IMG_004",
+        "image_name": "IMG_00 (7).jpeg",
+        "store_class": "Hypermarket",
+        "outlet_type": "Hypermarket",
+        "confidence": 0.9200249695803777,
+        "visibility_score": 0.7321387535136608,
+        "cleanliness_score": 0.7483635879613312,
+        "assortment_score": 0.8122691835686198,
+        "brand_presence_score": 0.7289981684931233,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_033",
+        "image_id": "IMG_033",
+        "image_name": "IMG_00 (8).jpeg",
+        "store_class": "Hypermarket",
+        "outlet_type": "Hypermarket",
+        "confidence": 0.9061620436902339,
+        "visibility_score": 0.767587501112019,
+        "cleanliness_score": 0.8445283205925749,
+        "assortment_score": 0.8988358573052315,
+        "brand_presence_score": 0.6464241084707305,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_021",
+        "image_id": "IMG_021",
+        "image_name": "More_Megastore,_Mysore.jpg",
+        "store_class": "Hypermarket",
+        "outlet_type": "Hypermarket",
+        "confidence": 0.9217422654476654,
+        "visibility_score": 0.7809151224616513,
+        "cleanliness_score": 0.7066178702064086,
+        "assortment_score": 0.7909820641972488,
+        "brand_presence_score": 0.7418271908087185,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_038",
+        "image_id": "IMG_038",
+        "image_name": "news13466.jpg",
+        "store_class": "Hypermarket",
+        "outlet_type": "Hypermarket",
+        "confidence": 0.8843714212752354,
+        "visibility_score": 0.702486073772786,
+        "cleanliness_score": 0.6731446096161244,
+        "assortment_score": 0.8844253527578371,
+        "brand_presence_score": 0.7900362732409456,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_055",
+        "image_id": "IMG_055",
+        "image_name": "vishal-mega-mart-1.jpg",
+        "store_class": "Hypermarket",
+        "outlet_type": "Hypermarket",
+        "confidence": 0.8968349111810876,
+        "visibility_score": 0.8537798923216591,
+        "cleanliness_score": 0.6965143807911529,
+        "assortment_score": 0.7470607701121216,
+        "brand_presence_score": 0.7541710081407598,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    }
+]

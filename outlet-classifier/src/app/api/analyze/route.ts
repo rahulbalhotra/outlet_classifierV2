@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import fs from 'fs';
+import path from 'path';
 
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { apiKey, description, image, documentContent, history, aso_id, aso_name, persona, modelName } = body;
 
-        if (!apiKey) {
+        const apiKeyToUse = apiKey || process.env.GEMINI_API_KEY;
+        if (!apiKeyToUse) {
             return NextResponse.json({ error: 'API key is required' }, { status: 400 });
         }
 
@@ -20,7 +22,7 @@ export async function POST(req: NextRequest) {
         // Prepare Prompt Context
         const activePersonaDesc = persona || (aso_id ? 'an Area Sales Officer Assistant focusing exclusively on this ASO\'s region' : 'an Admin/Expert Database Assistant with access to all ASO regions');
 
-        const dataPath = 'd:\\OutlesClassifier-ChatAssist\\retail_store_data_v2.json';
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
         let storeData = [];
         try {
             const dataStr = fs.readFileSync(dataPath, 'utf8');
@@ -38,7 +40,7 @@ export async function POST(req: NextRequest) {
 
         let systemPrompt = "";
         try {
-            const promptTemplate = fs.readFileSync('d:\\OutlesClassifier-ChatAssist\\outlet-classifier\\prompts\\v1_aso.md', 'utf8');
+            const promptTemplate = fs.readFileSync(path.join(process.cwd(), 'prompts', 'v1_aso.md'), 'utf8');
             systemPrompt = promptTemplate
                 .replace('{{persona}}', activePersonaDesc)
                 .replace(/\{\{aso_name\}\}/g, aso_name || 'Officer')
@@ -49,7 +51,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Initialize Gemini API with System Instruction
-        const genAI = new GoogleGenerativeAI(apiKey);
+        const genAI = new GoogleGenerativeAI(apiKeyToUse);
         const model = genAI.getGenerativeModel({
             model: selectedModel,
             systemInstruction: systemPrompt

@@ -2,14 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
     try {
-        const body = await req.json();
-        const { apiKey } = body;
-
-        if (!apiKey) {
+        const { apiKey } = await req.json();
+        const apiKeyToUse = apiKey || process.env.GEMINI_API_KEY;
+        if (!apiKeyToUse) {
             return NextResponse.json({ error: 'API key is required' }, { status: 400 });
         }
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKeyToUse}`);
 
         if (!response.ok) {
             throw new Error('Failed to fetch models from Google API');

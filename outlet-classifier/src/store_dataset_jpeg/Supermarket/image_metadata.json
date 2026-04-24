@@ -1,0 +1,278 @@
+[
+    {
+        "store_id": "STR_016",
+        "image_id": "IMG_016",
+        "image_name": "888A9157-copy_.jpg",
+        "store_class": "Mid-Size Store",
+        "outlet_type": "Mid-Size Store",
+        "confidence": 0.851122258451511,
+        "visibility_score": 0.8986044262732598,
+        "cleanliness_score": 0.8496145728422608,
+        "assortment_score": 0.7849690777677735,
+        "brand_presence_score": 0.7499212783431677,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_002",
+        "image_id": "IMG_002",
+        "image_name": "DMart-Ready-Mira-Road-Maharashtra.jpg",
+        "store_class": "Supermarket",
+        "outlet_type": "Supermarket",
+        "confidence": 0.8945338714330716,
+        "visibility_score": 0.8648362766730878,
+        "cleanliness_score": 0.8467311944043248,
+        "assortment_score": 0.7655488366997644,
+        "brand_presence_score": 0.663312410678753,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_003",
+        "image_id": "IMG_003",
+        "image_name": "Easy Day - Top Grocery Brands in India.jpg",
+        "store_class": "Mid-Size Store",
+        "outlet_type": "Mid-Size Store",
+        "confidence": 0.8776489496030899,
+        "visibility_score": 0.8159592206554535,
+        "cleanliness_score": 0.7324710305045152,
+        "assortment_score": 0.7243779155228454,
+        "brand_presence_score": 0.7842332032936822,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_037",
+        "image_id": "IMG_037",
+        "image_name": "IMG_00 (1).jpeg",
+        "store_class": "Supermarket",
+        "outlet_type": "Supermarket",
+        "confidence": 0.8735236820259282,
+        "visibility_score": 0.8663842744904277,
+        "cleanliness_score": 0.705223778044181,
+        "assortment_score": 0.7369030031279973,
+        "brand_presence_score": 0.6371836965946219,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_022",
+        "image_id": "IMG_022",
+        "image_name": "IMG_00 (18).jpeg",
+        "store_class": "Supermarket",
+        "outlet_type": "Supermarket",
+        "confidence": 0.9466317769925484,
+        "visibility_score": 0.8128606384859383,
+        "cleanliness_score": 0.8401441235520621,
+        "assortment_score": 0.7193133707787337,
+        "brand_presence_score": 0.6593608528498854,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_039",
+        "image_id": "IMG_039",
+        "image_name": "IMG_00 (2).jpeg",
+        "store_class": "Mid-Size Store",
+        "outlet_type": "Mid-Size Store",
+        "confidence": 0.9118022334913976,
+        "visibility_score": 0.8356254812509831,
+        "cleanliness_score": 0.6655957728948159,
+        "assortment_score": 0.7984846294277347,
+        "brand_presence_score": 0.6415757738805603,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_008",
+        "image_id": "IMG_008",
+        "image_name": "IMG_00 (3).jpeg",
+        "store_class": "Mid-Size Store",
+        "outlet_type": "Mid-Size Store",
+        "confidence": 0.8609174816671123,
+        "visibility_score": 0.7055820121901397,
+        "cleanliness_score": 0.7496149632461863,
+        "assortment_score": 0.8719339524132534,
+        "brand_presence_score": 0.7379825609783273,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_009",
+        "image_id": "IMG_009",
+        "image_name": "IMG_00 (4).jpeg",
+        "store_class": "Supermarket",
+        "outlet_type": "Supermarket",
+        "confidence": 0.9313651259935027,
+        "visibility_score": 0.7890977790080981,
+        "cleanliness_score": 0.797013619395785,
+        "assortment_score": 0.7577133066930335,
+        "brand_presence_score": 0.6156426878615577,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_026",
+        "image_id": "IMG_026",
+        "image_name": "l57920231106185509.jpg",
+        "store_class": "Supermarket",
+        "outlet_type": "Supermarket",
+        "confidence": 0.8870408004159562,
+        "visibility_score": 0.8199002267299309,
+        "cleanliness_score": 0.7201428084066291,
+        "assortment_score": 0.8705498243671759,
+        "brand_presence_score": 0.6731046645054665,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_043",
+        "image_id": "IMG_043",
+        "image_name": "m_Chitradurga_More_super_market_chitradurga_1_l_360_640.jpg",
+        "store_class": "Supermarket",
+        "outlet_type": "Supermarket",
+        "confidence": 0.8682489643571626,
+        "visibility_score": 0.7678485898496314,
+        "cleanliness_score": 0.8424273384857531,
+        "assortment_score": 0.8837520669816623,
+        "brand_presence_score": 0.6063947459050143,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_012",
+        "image_id": "IMG_012",
+        "image_name": "mkahmed.jpg",
+        "store_class": "Supermarket",
+        "outlet_type": "Supermarket",
+        "confidence": 0.8590319368596994,
+        "visibility_score": 0.8745160356538354,
+        "cleanliness_score": 0.7775784830747617,
+        "assortment_score": 0.7428076575417554,
+        "brand_presence_score": 0.717768335642817,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    },
+    {
+        "store_id": "STR_046",
+        "image_id": "IMG_046",
+        "image_name": "star-market-karmanghat-hyderabad-supermarkets-qJNcJYurXG.jpg",
+        "store_class": "Supermarket",
+        "outlet_type": "Supermarket",
+        "confidence": 0.8567463500309551,
+        "visibility_score": 0.7172679986237629,
+        "cleanliness_score": 0.773339786613658,
+        "assortment_score": 0.7499183584124255,
+        "brand_presence_score": 0.6664652100916166,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Standard"
+        },
+        "key_objects": [
+            "counter",
+            "shelves",
+            "products"
+        ]
+    }
+]

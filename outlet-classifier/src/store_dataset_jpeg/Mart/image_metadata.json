@@ -1,0 +1,163 @@
+[
+    {
+        "store_id": "STR_015",
+        "image_id": "IMG_015",
+        "image_name": "IMG_00 (14).jpeg",
+        "store_class": "Self-Assisted Store",
+        "outlet_type": "Self-Assisted Store",
+        "confidence": 0.86,
+        "visibility_score": 0.8,
+        "cleanliness_score": 0.7,
+        "assortment_score": 0.75,
+        "brand_presence_score": 0.6,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Natural",
+            "layout": "Compact"
+        },
+        "key_objects": [
+            "glass_front",
+            "product_display",
+            "store_signage"
+        ]
+    },
+    {
+        "store_id": "STR_029",
+        "image_id": "IMG_029",
+        "image_name": "IMG_00 (15).jpeg",
+        "store_class": "Self-Assisted Store",
+        "outlet_type": "Self-Assisted Store",
+        "confidence": 0.94,
+        "visibility_score": 0.9,
+        "cleanliness_score": 0.85,
+        "assortment_score": 0.9,
+        "brand_presence_score": 0.8,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "High",
+            "lighting": "Bright",
+            "layout": "Large organized"
+        },
+        "key_objects": [
+            "shopping_carts",
+            "glass_front",
+            "store_signage"
+        ]
+    },
+    {
+        "store_id": "STR_031",
+        "image_id": "IMG_031",
+        "image_name": "WhatsApp Image 2026-04-16 at 6.27.49 PM.jpeg",
+        "store_class": "Self-Assisted Store",
+        "outlet_type": "Self-Assisted Store",
+        "confidence": 0.9,
+        "visibility_score": 0.9,
+        "cleanliness_score": 0.8,
+        "assortment_score": 0.75,
+        "brand_presence_score": 0.7,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "High",
+            "lighting": "Good",
+            "layout": "Front-open"
+        },
+        "key_objects": [
+            "snack_displays",
+            "water_bottles",
+            "brand_posters"
+        ]
+    },
+    {
+        "store_id": "STR_006",
+        "image_id": "IMG_006",
+        "image_name": "a-small-grocery-store-in-istanbul-turkey-eurasia-ED8328.jpg",
+        "store_class": "Self-Assisted Store",
+        "outlet_type": "Self-Assisted Store",
+        "confidence": 0.93,
+        "visibility_score": 0.75,
+        "cleanliness_score": 0.6,
+        "assortment_score": 0.7,
+        "brand_presence_score": 0.6,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Low",
+            "lighting": "Natural",
+            "layout": "Cluttered"
+        },
+        "key_objects": [
+            "fruit_display",
+            "water_cans",
+            "snack_packets"
+        ]
+    },
+    {
+        "store_id": "STR_061",
+        "image_id": "IMG_061",
+        "image_name": "images (1).jpg",
+        "store_class": "Self-Assisted Store",
+        "outlet_type": "Self-Assisted Store",
+        "confidence": 0.88,
+        "visibility_score": 0.85,
+        "cleanliness_score": 0.75,
+        "assortment_score": 0.7,
+        "brand_presence_score": 0.65,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Moderate",
+            "layout": "Compact"
+        },
+        "key_objects": [
+            "snack_racks",
+            "beverage_bottles",
+            "store_signage"
+        ]
+    },
+    {
+        "store_id": "STR_010",
+        "image_id": "IMG_010",
+        "image_name": "images (2).jpg",
+        "store_class": "Self-Assisted Store",
+        "outlet_type": "Self-Assisted Store",
+        "confidence": 0.84,
+        "visibility_score": 0.8,
+        "cleanliness_score": 0.75,
+        "assortment_score": 0.65,
+        "brand_presence_score": 0.6,
+        "outside_display": true,
+        "visual_features": {
+            "signage_quality": "Medium",
+            "lighting": "Moderate",
+            "layout": "Compact"
+        },
+        "key_objects": [
+            "product_shelves",
+            "store_signage",
+            "counter"
+        ]
+    },
+    {
+        "store_id": "STR_011",
+        "image_id": "IMG_011",
+        "image_name": "images.jpg",
+        "store_class": "Self-Assisted Store",
+        "outlet_type": "Self-Assisted Store",
+        "confidence": 0.92,
+        "visibility_score": 0.9,
+        "cleanliness_score": 0.85,
+        "assortment_score": 0.8,
+        "brand_presence_score": 0.75,
+        "outside_display": false,
+        "visual_features": {
+            "signage_quality": "High",
+            "lighting": "Bright",
+            "layout": "Organized aisles"
+        },
+        "key_objects": [
+            "product_shelves",
+            "checkout_counter",
+            "store_signage"
+        ]
+    }
+]

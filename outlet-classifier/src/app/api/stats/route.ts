@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
+import path from 'path';
 
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
         const aso_id = searchParams.get('aso_id');
 
-        const dataPath = 'd:\\OutlesClassifier-ChatAssist\\retail_store_data_v2.json';
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
         const dataStr = fs.readFileSync(dataPath, 'utf8');
         let storeData = JSON.parse(dataStr);
 
