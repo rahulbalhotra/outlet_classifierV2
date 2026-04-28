@@ -1,7 +1,7 @@
-# OnGround AI: Technical & Functional Documentation
+# Classifier AI: Technical & Functional Documentation
 
 ## 1. Project Overview
-**OnGround AI** is a high-performance retail intelligence platform designed for Area Sales Officers (ASOs) and Retail Executives. It combines real-time data visualization with a multi-persona Generative AI assistant to provide actionable insights from on-ground market data, imagery, and store metrics.
+**Classifier AI** is a high-performance retail intelligence platform designed for Area Sales Officers (ASOs) and Retail Executives. It combines real-time data visualization with a multi-persona Generative AI assistant to provide actionable insights from on-ground market data, imagery, and store metrics.
 
 ---
 
@@ -28,7 +28,7 @@
 *   **Benchmark Correlation**: Displays real-time benchmarks with AMOV metrics to provide a direct comparison for on-boarding validation.
 *   **Database Commitment**: Seamlessly onboards validated stores into the master dataset with their classified photo.
 
-### C. OnGround AI Assistant
+### C. Classifier Assistant
 *   **Persona System**: Dedicated perspective switching (e.g., "Area Sales Officer") that alters the AI's tone and analytical focus.
 *   **Context Injection**: The assistant automatically receives a 50-record snapshot of the relevant market data to ground its answers in reality.
 *   **Multi-Modal**: Supports image uploads (for shelf-share analysis) and document uploads (CSV/TXT) for external context.

@@ -28,84 +28,102 @@ export async function GET(req: Request) {
             return acc + history.reduce((sAcc: number, entry: any) => sAcc + (Number(entry.sales_value_inr) || 0), 0);
         }, 0);
 
-        const segments: Record<string, number> = {};
-        const storeTypes: Record<string, number> = {};
+        const totalSkusSet = new Set<string>();
+        const segments: Record<string, { sales: number, count: number }> = {};
+        const storeTypes: Record<string, { sales: number, count: number }> = {};
         const locations: Record<string, number> = {};
-        const storeLocations: Array<{ name: string, lat: number, lng: number, segmentation: string, location: string }> = [];
+        const storeLocations: Array<any> = [];
         const monthlySalesTrend: Record<string, number> = {};
+        const skuPerformance: Record<string, number> = {};
+        const distributorPerformance: Record<string, number> = {};
 
         storeData.forEach((store: any) => {
             const seg = store.Segment_Name || 'Unknown';
-            segments[seg] = (segments[seg] || 0) + 1;
+            const history = store.monthly_sales_history || [];
+            const storeSales = history.reduce((sAcc: number, entry: any) => sAcc + (Number(entry.sales_value_inr) || 0), 0);
+
+            if (!segments[seg]) segments[seg] = { sales: 0, count: 0 };
+            segments[seg].sales += storeSales;
+            segments[seg].count += 1;
 
             const type = store.Outlet_Type || 'Unknown';
-            storeTypes[type] = (storeTypes[type] || 0) + 1;
+            if (!storeTypes[type]) storeTypes[type] = { sales: 0, count: 0 };
+            storeTypes[type].sales += storeSales;
+            storeTypes[type].count += 1;
 
             const loc = store.Route_Name || 'Unknown';
             locations[loc] = (locations[loc] || 0) + 1;
 
             if (store.latitude && store.longitude) {
                 storeLocations.push({
-                    name: store.Distributor_Name,
-                    lat: store.latitude,
-                    lng: store.longitude,
-                    segmentation: seg,
-                    location: loc
+                    Outlet_ID: store.Outlet_ID,
+                    Latitude: store.latitude,
+                    Longitude: store.longitude,
+                    'Sales in Rs.': storeSales,
+                    Segment_Name: seg,
+                    Outlet_Location: `${store.latitude}, ${store.longitude}`
                 });
             }
 
+            // SKU Tracking
+            (store.sku_list || []).forEach((sku: string) => {
+                totalSkusSet.add(sku);
+                skuPerformance[sku] = (skuPerformance[sku] || 0) + (storeSales / Math.max(1, store.sku_list.length));
+            });
+
+            // Distributor tracking
+            const dist = store.Distributor_Name || 'Unknown';
+            distributorPerformance[dist] = (distributorPerformance[dist] || 0) + storeSales;
+
             // Consolidate monthly trend
-            const history = store.monthly_sales_history || [];
             history.forEach((h: any) => {
                 monthlySalesTrend[h.month] = (monthlySalesTrend[h.month] || 0) + (Number(h.sales_value_inr) || 0);
             });
         });
 
-        const topStores = storeData
-            .map((s: any) => {
-                const history = s.monthly_sales_history || [];
-                return {
-                    name: s.Distributor_Name,
-                    sales: history.reduce((sAcc: number, entry: any) => sAcc + (Number(entry.sales_value_inr) || 0), 0),
-                    location: s.Route_Name,
-                    type: s.Outlet_Type
-                };
-            })
-            .sort((a: any, b: any) => b.sales - a.sales)
+        // Format for Dashboard
+        const trend = Object.entries(monthlySalesTrend).map(([month, sales]) => ({
+            month: new Date(month).toISOString().split('T')[0].slice(0, 7), // YYYY-MM
+            sales
+        })).sort((a, b) => a.month.localeCompare(b.month));
+
+        const totalSalesVal = Object.values(monthlySalesTrend).reduce((a, b) => a + b, 0);
+        const categoryDist = Object.entries(storeTypes).map(([category, data]) => ({
+            category,
+            sales: data.sales,
+            percentage: totalSalesVal > 0 ? Number(((data.sales / totalSalesVal) * 100).toFixed(2)) : 0
+        })).sort((a, b) => b.sales - a.sales);
+
+        const segmentation = Object.entries(segments).map(([segment, data]) => ({
+            segment,
+            sales: data.sales,
+            unique_outlets: data.count
+        })).sort((a, b) => b.sales - a.sales);
+
+        const topSkus = Object.entries(skuPerformance)
+            .map(([sku, sales]) => ({ sku, sales }))
+            .sort((a, b) => b.sales - a.sales)
+            .slice(0, 10);
+
+        const topDistributors = Object.entries(distributorPerformance)
+            .map(([distributor, sales]) => ({ distributor, sales }))
+            .sort((a, b) => b.sales - a.sales)
             .slice(0, 5);
-
-        // Calculate MoM Growth from the trend data
-        const sortedMonths = Object.keys(monthlySalesTrend).sort((a, b) => {
-            // Sort by Date object to ensure chronological order
-            return new Date(a).getTime() - new Date(b).getTime();
-        });
-
-        let momGrowth = 0;
-        if (sortedMonths.length >= 2) {
-            const currentMonth = sortedMonths[sortedMonths.length - 1];
-            const prevMonth = sortedMonths[sortedMonths.length - 2];
-            const currentSales = monthlySalesTrend[currentMonth];
-            const prevSales = monthlySalesTrend[prevMonth];
-            if (prevSales > 0) {
-                momGrowth = ((currentSales - prevSales) / prevSales) * 100;
-            }
-        }
 
         return NextResponse.json({
             kpis: {
-                totalStores,
-                totalSales,
-                avgGrowth: momGrowth.toFixed(2),
-                avgSalesPerStore: (totalSales / totalStores).toFixed(0)
+                total_sales: totalSales,
+                total_volume: totalSales / 100, // Placeholder ratio
+                total_outlets: totalStores,
+                avg_sales_per_outlet: totalSales / totalStores,
+                total_skus: totalSkusSet.size
             },
-            breakdowns: {
-                segments,
-                storeTypes,
-                topStores,
-                locations,
-                storeLocations,
-                monthlySalesTrend
-            }
+            trend,
+            categoryDist,
+            locations: storeLocations,
+            segmentation,
+            topSkus,
+            topDistributors
         }, { status: 200 });
     } catch (error: any) {
         console.error('Stats API Error:', error);

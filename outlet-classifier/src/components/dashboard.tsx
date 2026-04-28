@@ -52,7 +52,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: any) => vo
     useEffect(() => {
         const fetchFilters = async () => {
             try {
-                const res = await fetch('/stats-api/filters');
+                const res = await fetch('/api/stats/filters');
                 const options = await res.json();
                 setFilterOptions(options);
             } catch (err) {
@@ -67,24 +67,21 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: any) => vo
             setIsLoading(true);
             try {
                 const query = new URLSearchParams(filters).toString();
-                const [kpis, trend, catDist, locs, seg, skus, dists] = await Promise.all([
-                    fetch(`/stats-api/kpis?${query}`).then(r => r.json()),
-                    fetch(`/stats-api/charts/sales-trend?${query}`).then(r => r.json()),
-                    fetch(`/stats-api/charts/category-distribution?${query}`).then(r => r.json()),
-                    fetch(`/stats-api/charts/locations?${query}`).then(r => r.json()),
-                    fetch(`/stats-api/charts/segmentation?${query}`).then(r => r.json()),
-                    fetch(`/stats-api/charts/top-skus?${query}`).then(r => r.json()),
-                    fetch(`/stats-api/charts/top-distributors?${query}`).then(r => r.json())
-                ]);
+                const res = await fetch(`/api/stats?${query}`);
+                const allData = await res.json();
+
+                if (allData.error) {
+                    throw new Error(allData.error);
+                }
 
                 setData({
-                    kpis,
-                    trend,
-                    categoryDist: catDist,
-                    locations: locs,
-                    segmentation: seg,
-                    topSkus: skus,
-                    topDistributors: dists
+                    kpis: allData.kpis,
+                    trend: allData.trend,
+                    categoryDist: allData.categoryDist,
+                    locations: allData.locations,
+                    segmentation: allData.segmentation,
+                    topSkus: allData.topSkus,
+                    topDistributors: allData.topDistributors
                 });
             } catch (err) {
                 console.error('Failed to load analytics', err);

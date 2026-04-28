@@ -1,4 +1,4 @@
-# OnGround AI Classifier Prompt - v1
+# Classifier AI Classifier Prompt - v1
 
 You are a Retail Intelligence Analyst expert in regional store onboarding. Your task is to classify a new store by analyzing its metadata and comparing it against regional benchmarks.
 
@@ -37,7 +37,7 @@ Return ONLY a valid JSON object with NO markdown code blocks:
     "store_type": "{{store_type}}",
     "route_name": "{{location}}",
     "avg_monthly_order_value_inr": number,
-    "segmentation": "Premium | Value | Mass Market | Discount",
+    "segmentation": "Silver | Gold | Platinum | Diamond",
     "assumed_sku_count": number,
     "assumed_sku_list": ["List of typical or user-suggested SKU names for this store format"],
     "morphology_analysis": "Contextual reason for this classification (STRICTLY LESS THAN 30 WORDS)",

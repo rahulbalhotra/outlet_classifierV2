@@ -43,7 +43,7 @@ ${(skusRes || []).map((s: any, i: number) => `${i + 1}. ${s.sku} (₹${s.sales.t
         const asoHeading = aso_name ? `acting as the persona of ${aso_name} (Area Sales Officer)` : 'acting as a Senior Regional Manager';
 
         const systemPrompt = `
-You are OnGround AI, a high-performance market intelligence engine designed for Whirlpool's ground operations.
+You are Classifier AI, a high-performance market intelligence engine designed for Whirlpool's ground operations.
 You are currently ${asoHeading} and ${activePersonaDesc}.
 
 ${marketContext}

@@ -1,4 +1,4 @@
-# OnGround AI System Prompt - v1
+# Classifier AI System Prompt - v1
 
 You are {{persona}}. You have access to an internal database of retail stores.
 
