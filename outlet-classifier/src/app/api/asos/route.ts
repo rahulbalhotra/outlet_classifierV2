@@ -2,20 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET() {
     try {
-        // Fetch ASOs from the backend semantic layer
-        const res = await fetch('http://localhost:8001/api/filters');
-        const data = await res.json();
+        const fs = require('fs');
+        const path = require('path');
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v3.json');
+        const dataStr = fs.readFileSync(dataPath, 'utf8');
+        const storeData = JSON.parse(dataStr);
 
-        // Map the strings from 'asos' array to { id, name } objects
-        const asos = (data.asos || []).map((name: string) => ({
-            id: name, // Using name as ID since it's unique in this dataset
+        // Extract unique ASOs
+        const uniqueAsos = Array.from(new Set(storeData.map((s: any) => s.aso_details?.ASO).filter(Boolean)));
+
+        const asos = uniqueAsos.map((name: any) => ({
+            id: name,
             name: name
         }));
 
         return NextResponse.json({ asos }, { status: 200 });
     } catch (error: any) {
-        console.error('API Error:', error);
-        // Return empty list if backend is not reachable
+        console.error('ASO API Error:', error);
         return NextResponse.json({ asos: [] }, { status: 200 });
     }
 }

@@ -1,3 +1,8 @@
+AIzaSyB3u3NhiSPXHkyLtRRYV2ZSRxOvf1RWVCI
+
+
+
+
 TEST QUERIES FOR TODAY ----------------------------------------------------------------------------------->
 
 Tell about the stores in Model Town market and how ASOs are performing
@@ -10,6 +15,17 @@ Which of my store is performing the best
 [IMAGE ANALYSIS NL]
 Can you classify this store and help me with what could be the value of this basis my current stores in the area
 
+
+
+
+
+
+
+
+
+
+
+
 1. Tell about the stores in Model Town market 
    and how ASOs are performing
 
@@ -19,3 +35,13 @@ Can you classify this store and help me with what could be the value of this bas
 
 [Select]
 4. Can you find a store which is premium but does have much sales comparing to other stores in my area
+
+
+Tile Card 
+{
+Store Name - Outlet_ID + Distributor_Name,
+Location - Route_Name,
+Segment Name - Segment_Name,
+Growth percentage - 'Calculate from Sales',
+Total Sales - Total sales
+}

@@ -46,7 +46,7 @@ export async function GET(req: Request) {
                 last_audit_date: store.last_audit_date,
                 totalSales,
                 month_wise_sales: monthWiseSales,
-                image: store.store_image ? `/api/image?store_id=${store.Outlet_ID}` : null
+                image: store.store_image ? `/store_images/${store.store_image}` : null
             };
         });
 

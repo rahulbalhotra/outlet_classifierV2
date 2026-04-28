@@ -7,17 +7,17 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url);
         const aso_id = searchParams.get('aso_id');
 
-        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v3.json');
         const dataStr = fs.readFileSync(dataPath, 'utf8');
         let storeData = JSON.parse(dataStr);
 
         if (aso_id && aso_id !== 'all') {
-            storeData = storeData.filter((store: any) => store.aso_details?.aso_id === aso_id);
+            storeData = storeData.filter((store: any) => store.aso_details?.ASO === aso_id);
         }
 
         if (storeData.length === 0) {
             return NextResponse.json({
-                kpis: { totalStores: 0, totalSales: 0, avgGrowth: 0, avgSalesPerStore: 0 },
+                kpis: { totalStores: 0, totalSales: 0, avgGrowth: '0.00', avgSalesPerStore: '0' },
                 breakdowns: { segments: {}, storeTypes: {}, asoPerformance: [], topStores: [], locations: {}, storeLocations: [], monthlySalesTrend: {} }
             });
         }
@@ -28,8 +28,6 @@ export async function GET(req: Request) {
             return acc + history.reduce((sAcc: number, entry: any) => sAcc + (Number(entry.sales_value_inr) || 0), 0);
         }, 0);
 
-
-
         const segments: Record<string, number> = {};
         const storeTypes: Record<string, number> = {};
         const locations: Record<string, number> = {};
@@ -37,22 +35,22 @@ export async function GET(req: Request) {
         const monthlySalesTrend: Record<string, number> = {};
 
         storeData.forEach((store: any) => {
-            const seg = store.segmentation || 'Unknown';
+            const seg = store.Segment_Name || 'Unknown';
             segments[seg] = (segments[seg] || 0) + 1;
 
-            const type = store.store_type || 'Unknown';
+            const type = store.Outlet_Type || 'Unknown';
             storeTypes[type] = (storeTypes[type] || 0) + 1;
 
-            const loc = store.location || 'Unknown';
+            const loc = store.Route_Name || 'Unknown';
             locations[loc] = (locations[loc] || 0) + 1;
 
             if (store.latitude && store.longitude) {
                 storeLocations.push({
-                    name: store.store_name,
+                    name: store.Distributor_Name,
                     lat: store.latitude,
                     lng: store.longitude,
-                    segmentation: store.segmentation,
-                    location: store.location
+                    segmentation: seg,
+                    location: loc
                 });
             }
 
@@ -67,17 +65,21 @@ export async function GET(req: Request) {
             .map((s: any) => {
                 const history = s.monthly_sales_history || [];
                 return {
-                    name: s.store_name,
+                    name: s.Distributor_Name,
                     sales: history.reduce((sAcc: number, entry: any) => sAcc + (Number(entry.sales_value_inr) || 0), 0),
-                    location: s.location,
-                    type: s.store_type
+                    location: s.Route_Name,
+                    type: s.Outlet_Type
                 };
             })
             .sort((a: any, b: any) => b.sales - a.sales)
             .slice(0, 5);
 
         // Calculate MoM Growth from the trend data
-        const sortedMonths = Object.keys(monthlySalesTrend).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+        const sortedMonths = Object.keys(monthlySalesTrend).sort((a, b) => {
+            // Sort by Date object to ensure chronological order
+            return new Date(a).getTime() - new Date(b).getTime();
+        });
+
         let momGrowth = 0;
         if (sortedMonths.length >= 2) {
             const currentMonth = sortedMonths[sortedMonths.length - 1];
