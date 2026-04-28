@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Store, MapPin, TrendingUp, TrendingDown, X, ChevronRight, Activity, Target, BarChart3 } from 'lucide-react';
+import { Store, MapPin, TrendingUp, TrendingDown, X, ChevronRight, Activity, Target, BarChart3, LayoutGrid } from 'lucide-react';
 
 interface AsoDetails {
     aso_id: string;
@@ -12,7 +12,6 @@ interface StoreData {
     store_id: string;
     store_name: string;
     store_type: string;
-    location: string;
     latitude: number;
     longitude: number;
     segmentation: string;
@@ -22,6 +21,9 @@ interface StoreData {
     month_wise_sales: Record<string, number>;
     aso_details: AsoDetails;
     image?: string;
+    unique_sku_count: number;
+    sku_list: string[];
+    route_name?: string;
 }
 
 interface FilterSelectProps {
@@ -62,20 +64,20 @@ export default function StorePortfolio() {
     useEffect(() => {
         let result = [...stores];
         if (filterSegment !== 'all') {
-            result = result.filter(s => s.segmentation === filterSegment);
+            result = result.filter(s => s?.segmentation === filterSegment);
         }
         if (filterArea !== 'all') {
-            result = result.filter(s => s.location === filterArea);
+            result = result.filter(s => s?.route_name === filterArea);
         }
         if (filterAso !== 'all') {
-            result = result.filter(s => s.aso_details?.aso_name === filterAso);
+            result = result.filter(s => s?.aso_details?.aso_name === filterAso);
         }
         setFilteredStores(result);
     }, [filterSegment, filterArea, filterAso, stores]);
 
-    const uniqueSegments = Array.from(new Set(stores.map(s => s.segmentation).filter(Boolean)));
-    const uniqueAreas = Array.from(new Set(stores.map(s => s.location).filter(Boolean)));
-    const uniqueAsos = Array.from(new Set(stores.map(s => s.aso_details?.aso_name).filter(Boolean)));
+    const uniqueSegments = Array.from(new Set(stores.filter(s => s).map(s => s.segmentation).filter(Boolean))) as string[];
+    const uniqueAreas = Array.from(new Set(stores.filter(s => s).map(s => s.route_name).filter(Boolean))) as string[];
+    const uniqueAsos = Array.from(new Set(stores.filter(s => s).map(s => s.aso_details?.aso_name).filter(Boolean))) as string[];
 
     const formatCurrency = (val: number) => {
         if (val >= 10000000) return `₹${(val / 10000000).toFixed(2)} Cr`;
@@ -125,8 +127,8 @@ export default function StorePortfolio() {
 
                 {/* Store Cards Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {filteredStores.map((store) => {
-                        const isPositive = store.growth_rate_percentage >= 0;
+                    {filteredStores.filter(s => s).map((store) => {
+                        const isPositive = (store.growth_rate_percentage || 0) >= 0;
                         return (
                             <div
                                 key={store.store_id}
@@ -135,7 +137,7 @@ export default function StorePortfolio() {
                             >
                                 <div className="aspect-[5/3] bg-gray-100 relative overflow-hidden">
                                     <img
-                                        src={store.image || `/api/image?type=${store.store_type}&index=${parseInt(store.store_id.split('_')[1] || '0')}`}
+                                        src={store.image || `/api/image?type=${store.store_type}&index=${parseInt(store.store_id?.split('_')[1] || '0')}`}
                                         alt={store.store_name}
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                         onError={(e) => {
@@ -152,8 +154,8 @@ export default function StorePortfolio() {
                                 <div className="p-5 flex flex-col flex-1">
                                     <h3 className="font-black text-gray-900 text-base leading-tight mb-0.5 group-hover:text-red-600 transition-colors uppercase truncate">{store.store_name}</h3>
                                     <div className="flex items-center gap-1 text-gray-400 font-bold text-[10px] uppercase tracking-wider mb-3">
-                                        <MapPin className="w-3 h-3 text-red-400" />
-                                        {store.location}
+                                        <LayoutGrid className="w-3 h-3 text-red-400" />
+                                        {store.route_name}
                                     </div>
 
                                     <div className="mt-auto pt-3 border-t border-gray-50 space-y-3">
@@ -201,8 +203,8 @@ export default function StorePortfolio() {
                                 </div>
                                 <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tight mb-1">{selectedStore.store_name}</h2>
                                 <p className="text-gray-500 font-bold text-sm flex items-center gap-2">
-                                    <MapPin className="w-3.5 h-3.5 text-red-500" />
-                                    {selectedStore.location} • {selectedStore.aso_details?.aso_name}
+                                    <LayoutGrid className="w-3.5 h-3.5 text-red-500" />
+                                    {selectedStore.route_name} • {selectedStore.aso_details?.aso_name}
                                 </p>
                             </div>
                             <button onClick={() => setSelectedStore(null)} className="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-400">
@@ -227,6 +229,10 @@ export default function StorePortfolio() {
                                     <span className={`text-xl font-black ${selectedStore.growth_rate_percentage >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                                         {selectedStore.growth_rate_percentage >= 0 ? '+' : ''}{selectedStore.growth_rate_percentage}%
                                     </span>
+                                </div>
+                                <div className="bg-gray-50 p-5 rounded-xl border border-gray-100 text-center">
+                                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Unique SKUs</span>
+                                    <span className="text-xl font-black text-gray-900">{selectedStore.unique_sku_count}</span>
                                 </div>
                             </div>
 
@@ -270,13 +276,27 @@ export default function StorePortfolio() {
                             </div>
 
                             {/* Rating */}
-                            <div className="flex items-center gap-4 bg-gray-50 p-5 rounded-xl border border-gray-100">
-                                <BarChart3 className="w-8 h-8 text-red-500" />
-                                <div>
-                                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block">Performance Tier</span>
-                                    <span className="text-lg font-black text-gray-900 uppercase">
-                                        {selectedStore.growth_rate_percentage > 8 ? '🏆 Platinum' : selectedStore.growth_rate_percentage > 3 ? '⭐ Gold' : selectedStore.growth_rate_percentage >= 0 ? '🔵 Standard' : '⚠️ Needs Attention'}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="flex items-center gap-4 bg-gray-50 p-5 rounded-xl border border-gray-100">
+                                    <BarChart3 className="w-8 h-8 text-red-500" />
+                                    <div>
+                                        <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block">Performance Tier</span>
+                                        <span className="text-lg font-black text-gray-900 uppercase">
+                                            {selectedStore.growth_rate_percentage > 8 ? '🏆 Platinum' : selectedStore.growth_rate_percentage > 3 ? '⭐ Gold' : selectedStore.growth_rate_percentage >= 0 ? '🔵 Standard' : '⚠️ Needs Attention'}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="bg-gray-50 p-5 rounded-xl border border-gray-100">
+                                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-3 flex items-center gap-2">
+                                        <Target className="w-3 h-3 text-red-500" /> SKU Portfolio
                                     </span>
+                                    <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto pr-2 custom-scrollbar">
+                                        {selectedStore.sku_list && selectedStore.sku_list.map((sku, idx) => (
+                                            <span key={idx} className="bg-white px-2 py-0.5 rounded border border-gray-200 text-[10px] font-bold text-gray-600">
+                                                {sku}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>

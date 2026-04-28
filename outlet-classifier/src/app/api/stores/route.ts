@@ -7,19 +7,18 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url);
         const aso_id = searchParams.get('aso_id');
 
-        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v3.json');
         const dataStr = fs.readFileSync(dataPath, 'utf8');
         let storeData = JSON.parse(dataStr);
 
         if (aso_id && aso_id !== 'all') {
-            storeData = storeData.filter((store: Record<string, unknown>) => {
-                const details = store.aso_details as Record<string, string> | undefined;
-                return details?.aso_id === aso_id;
+            storeData = storeData.filter((store: Record<string, any>) => {
+                return store.aso_details?.ASO === aso_id;
             });
         }
 
-        const enhancedData = storeData.map((store: Record<string, unknown>) => {
-            const history = (store.monthly_sales_history || []) as Array<Record<string, unknown>>;
+        const enhancedData = storeData.map((store: Record<string, any>) => {
+            const history = (store.monthly_sales_history || []) as Array<Record<string, any>>;
             const totalSales = history.reduce((acc: number, entry) => acc + (Number(entry.sales_value_inr) || 0), 0);
 
             const monthWiseSales: Record<string, number> = {};
@@ -27,10 +26,27 @@ export async function GET(req: Request) {
                 monthWiseSales[String(entry.month)] = Number(entry.sales_value_inr) || 0;
             });
 
+            // Map v3 keys to frontend keys
             return {
-                ...store,
+                store_id: store.Outlet_ID,
+                store_name: store.Distributor_Name,
+                store_type: store.Outlet_Type,
+                route_name: store.Route_Name || store.route_name,
+                latitude: store.latitude,
+                longitude: store.longitude,
+                segmentation: store.Segment_Name,
+                avg_monthly_order_value_inr: store.avg_monthly_order_value_inr,
+                growth_rate_percentage: store.growth_rate_percentage,
+                unique_sku_count: store.unique_sku_count,
+                sku_list: store.sku_list,
+                aso_details: {
+                    aso_id: store.aso_details?.ASO,
+                    aso_name: store.aso_details?.ASO
+                },
+                last_audit_date: store.last_audit_date,
                 totalSales,
-                month_wise_sales: monthWiseSales
+                month_wise_sales: monthWiseSales,
+                image: store.store_image ? `/api/image?store_id=${store.Outlet_ID}` : null
             };
         });
 
@@ -44,7 +60,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
     try {
         const newStore = await req.json();
-        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v3.json');
         const dataStr = fs.readFileSync(dataPath, 'utf8');
         const stores = JSON.parse(dataStr);
 

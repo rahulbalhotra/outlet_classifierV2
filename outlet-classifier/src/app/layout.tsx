@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OnGround Assist",
+  title: "Outlet Classifier",
   description: "AI-powered retail intelligence and store classification assistant",
 };
 

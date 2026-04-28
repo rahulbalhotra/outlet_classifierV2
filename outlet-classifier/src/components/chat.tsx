@@ -21,12 +21,13 @@ interface ChatMessage {
 
 const PERSONAS = [
     { id: 'aso', name: 'Area Sales Officer', icon: User, desc: 'On-ground performance & market insights' },
+    { id: 'analyst', name: 'Market Analyst', icon: Database, desc: 'Trend prediction & statistical deep-dives' },
 ];
 
 const SUGGESTIONS = [
-    "How many outlets in sarabha nagar market?",
-    "What type of outlets dominate in this market?",
-    "Average monthly order value in Premium outlets?",
+    "How many outlets in Jodhpur Park route?",
+    "What type of outlets dominate in this route?",
+    "Average monthly order value in Diamond segment outlets?",
 ];
 
 export default function Chat() {
@@ -327,17 +328,20 @@ export default function Chat() {
                 <div className="p-4 border-t border-gray-200 bg-white">
                     <div className="bg-gray-50 rounded-2xl p-4 space-y-4 border border-gray-100">
                         <div>
-                            <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Region Filter</h3>
-                            <select
-                                value={selectedAso}
-                                onChange={(e) => setSelectedAso(e.target.value)}
-                                className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs outline-none focus:ring-2 focus:ring-red-100 focus:border-red-500 font-bold text-gray-700"
-                            >
-                                <option value="all">All Regions</option>
-                                {asos.map((aso) => (
-                                    <option key={aso.id} value={aso.id}>{aso.name}</option>
-                                ))}
-                            </select>
+                            <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">ASO Persona Focus</h3>
+                            <div className="relative group">
+                                <select
+                                    value={selectedAso}
+                                    onChange={(e) => setSelectedAso(e.target.value)}
+                                    className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-xs outline-none focus:ring-2 focus:ring-red-100 focus:border-red-500 font-bold text-gray-700 appearance-none transition-all cursor-pointer shadow-sm group-hover:border-red-300"
+                                >
+                                    <option value="all">Regional Manager (All)</option>
+                                    {asos.map((aso) => (
+                                        <option key={aso.id} value={aso.id}>{aso.name}</option>
+                                    ))}
+                                </select>
+                                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none group-hover:text-red-500" />
+                            </div>
                         </div>
 
                         <div>
@@ -424,7 +428,7 @@ export default function Chat() {
                                 <img src="/logo.png" alt="Logo" className="w-16 h-16 object-contain" />
                             </div>
                             <div className="space-y-2">
-                                <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight">OnGround AI Assistant</h2>
+                                <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight">Classifier Assistant</h2>
                                 <p className="text-gray-500 text-lg max-w-xl mx-auto leading-relaxed">
                                     Analyze retail data, classify store imagery, and generate strategic insights as an <span className="font-bold text-red-600 underline underline-offset-4 decoration-red-200">{activePersona.name}</span>.
                                 </p>

@@ -13,44 +13,51 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'API key is required' }, { status: 400 });
         }
 
-        if (!description && !image && !documentContent) {
-            return NextResponse.json({ error: 'Context is required' }, { status: 400 });
-        }
+        const selectedModel = modelName || 'gemini-1.5-flash';
 
-        const selectedModel = modelName || 'gemini-1.5-pro';
-
-        // Prepare Prompt Context
-        const activePersonaDesc = persona || (aso_id ? 'an Area Sales Officer Assistant focusing exclusively on this ASO\'s region' : 'an Admin/Expert Database Assistant with access to all ASO regions');
-
-        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
-        let storeData = [];
+        // Prepare context from Backend (FastAPI)
+        let marketContext = "";
         try {
-            const dataStr = fs.readFileSync(dataPath, 'utf8');
-            storeData = JSON.parse(dataStr);
+            const query = aso_name ? `aso=${encodeURIComponent(aso_name)}` : "";
+            const [kpiRes, skusRes] = await Promise.all([
+                fetch(`http://localhost:8001/api/kpis?${query}`).then(r => r.json()),
+                fetch(`http://localhost:8001/api/charts/top-skus?n=10&${query}`).then(r => r.json())
+            ]);
+
+            marketContext = `
+## Current Market Snapshot ${aso_name ? `for ASO: ${aso_name}` : '(Universal View)'}
+- Total Sales Revenue: ₹${kpiRes.total_sales.toLocaleString('en-IN')}
+- Active Market Outlets: ${kpiRes.total_outlets}
+- Average Order Value per Store: ₹${kpiRes.avg_sales_per_outlet.toLocaleString('en-IN')}
+- Unique SKUs in Circulation: ${kpiRes.total_skus}
+
+## Top 10 High-Velocity Products
+${(skusRes || []).map((s: any, i: number) => `${i + 1}. ${s.sku} (₹${s.sales.toLocaleString('en-IN')})`).join('\n')}
+`;
         } catch (e) {
-            console.error('Failed to load store data', e);
-            storeData = []; // Fallback to empty
+            console.error('Failed to load market context from backend', e);
+            marketContext = "Error: Data backend is currently unreachable. Operating on visual and document context only.";
         }
 
-        if (aso_id) {
-            storeData = storeData.filter((store: any) => store.aso_details?.aso_id === aso_id);
-        }
+        const activePersonaDesc = persona || 'an AI Market Intelligence Assistant';
+        const asoHeading = aso_name ? `acting as the persona of ${aso_name} (Area Sales Officer)` : 'acting as a Senior Regional Manager';
 
-        const dbSnapshot = JSON.stringify(storeData.slice(0, 50), null, 2);
+        const systemPrompt = `
+You are OnGround AI, a high-performance market intelligence engine designed for Whirlpool's ground operations.
+You are currently ${asoHeading} and ${activePersonaDesc}.
 
-        let systemPrompt = "";
-        try {
-            const promptTemplate = fs.readFileSync(path.join(process.cwd(), 'prompts', 'v1_aso.md'), 'utf8');
-            systemPrompt = promptTemplate
-                .replace('{{persona}}', activePersonaDesc)
-                .replace(/\{\{aso_name\}\}/g, aso_name || 'Officer')
-                .replace('{{database_snapshot}}', dbSnapshot)
-                .replace('{{document_section}}', documentContent ? `## Additional Context\n"${documentContent}"` : '');
-        } catch (e) {
-            systemPrompt = `You are ${activePersonaDesc}. Database Snapshot: ${dbSnapshot}`;
-        }
+${marketContext}
 
-        // Initialize Gemini API with System Instruction
+${documentContent ? `## Reference Documents\n"${documentContent}"` : ''}
+
+### Operational Guidelines:
+1. Provide extremely professional, data-driven insights.
+2. If the user asks about specific performance, refer to the "Current Market Snapshot" provided above.
+3. Be concise and use Markdown tables or lists for data presentation.
+4. Your tone should be authoritative but supportive to ground staff.
+`;
+
+        // Initialize Gemini API
         const genAI = new GoogleGenerativeAI(apiKeyToUse);
         const model = genAI.getGenerativeModel({
             model: selectedModel,

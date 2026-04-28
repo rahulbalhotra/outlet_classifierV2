@@ -1,0 +1,915 @@
+[
+    {
+        "Outlet_ID": "16872",
+        "Distributor_Name": "16872-Abhinandan",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Dum Dum Park / Narayantala",
+        "latitude": 22.60891395,
+        "longitude": 88.41811325,
+        "avg_monthly_order_value_inr": 20941.66,
+        "growth_rate_percentage": -19.51,
+        "Segment_Name": "Gold",
+        "unique_sku_count": 25,
+        "sku_list": [
+            "Blend Spice Combo (Meat+Chicken)",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 410 gm Pch-Strong",
+            "KG Mustard Oil 825 gm Pet-Strong",
+            "KG Mustard Oil 410 gm Pet-Strong",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Haldi Powder 50 g",
+            "Ricebran Oil 825 gm Pch",
+            "Sunflower Oil 825 gm Pch",
+            "Advans Nutri Soya Chunk 1 kg (MRP180)",
+            "Amrit? Atta 5Kg Pouch",
+            "Amrit? Maida 1Kg Pouch",
+            "Amrit? Suji 200 Gm Pouch",
+            "KG Mustard Oil 180 gm Pet-Strong",
+            "Chilli Powder 50 g",
+            "Jeera Powder 50 g",
+            "Posto Whole 50 g (MRP 130)",
+            "Ricebran Oil 730 gm Pch",
+            "Soyabean Oil 365 gm Pch",
+            "Soyabean Oil 365 gm Pet",
+            "Sunflower Oil 780 gm Pch (12 pc)",
+            "Advans Mini Nutri Soya Chunk Rs 10 (33g)",
+            "Dhania Powder 50 g",
+            "Amrit? Besan 500 Gm Pouch"
+        ],
+        "aso_details": {
+            "ASO": "Vivek Agarwal"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 31429.32,
+                "orders_count": 299
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 23923.92,
+                "orders_count": 227
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 15742.73,
+                "orders_count": 149
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 12670.66,
+                "orders_count": 106
+            }
+        ],
+        "store_image": "16872.png"
+    },
+    {
+        "Outlet_ID": "274460",
+        "Distributor_Name": "274460-S. K. ",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Jodhpur Park",
+        "latitude": 22.50877638,
+        "longitude": 88.36076863,
+        "avg_monthly_order_value_inr": 9671.33,
+        "growth_rate_percentage": 12.93,
+        "Segment_Name": "Gold",
+        "unique_sku_count": 29,
+        "sku_list": [
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 410 gm Pet-Strong",
+            "Soyabean Oil 825 gm Pet",
+            "Soyabean Oil 160 gm Pet",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Chilli Powder 50 g",
+            "Dhania Powder 50 g",
+            "Haldi Powder 50 g",
+            "Jeera Powder 50 g",
+            "Posto Whole 8 g (MRP 20)",
+            "Ricebran Oil 825 gm Pch",
+            "Sunflower Oil 825 gm Pch",
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "Advans Nutri Soya Chunk 200 g Rs 55",
+            "Advans Nutri Soya Chunk 1 kg (MRP180)",
+            "Amrit? Atta 1Kg Pouch",
+            "Amrit? Maida 1Kg Pouch",
+            "Sunflower Oil 780 gm Pch (12 pc)",
+            "Soyabean Oil 730 gm Pet",
+            "Haldi Powder 100 g",
+            "Posto Whole 23 g (MRP 55)",
+            "Ricebran Oil 730 gm Pch",
+            "Amrit? Maida 500 Gm Pouch",
+            "Amrit? Suji 200 Gm Pouch",
+            "Amrit? Besan 200 Gm Pouch",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Soyabean Oil 365 gm Pet",
+            "Jeera Whole 14g MRP 10",
+            "Kala Jeera Whole 18g MRP 10"
+        ],
+        "aso_details": {
+            "ASO": "Ganesh Naskar"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 16899.31,
+                "orders_count": 251
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 5148.89,
+                "orders_count": 68
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 7813.34,
+                "orders_count": 108
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 8823.78,
+                "orders_count": 149
+            }
+        ],
+        "store_image": "274460.png"
+    },
+    {
+        "Outlet_ID": "277592",
+        "Distributor_Name": "277592-Abhinandan",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Mall Road",
+        "latitude": 22.62889665,
+        "longitude": 88.42343308,
+        "avg_monthly_order_value_inr": 12315.19,
+        "growth_rate_percentage": 69.47,
+        "Segment_Name": "Gold",
+        "unique_sku_count": 16,
+        "sku_list": [
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 410 gm Pch-Strong",
+            "KG Mustard Oil 825 gm Pet-Strong",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Ricebran Oil 825 gm Pch",
+            "Sunflower Oil 825 gm Pch",
+            "Advans Nutri Soya Chunk 1 kg (MRP180)",
+            "Amrit? Atta 5Kg Pouch",
+            "Amrit? Suji 500 Gm Pouch",
+            "Ricebran Oil 730 gm Pch",
+            "Sunflower Oil 780 gm Pch (12 pc)",
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "Advans Mini Nutri Soya Chunk Rs 10 (33g)",
+            "Amrit? Atta 1Kg Pouch",
+            "Amrit? Maida 1Kg Pouch",
+            "KG Mustard Oil 410 gm Pet-Strong"
+        ],
+        "aso_details": {
+            "ASO": "Vivek Agarwal"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 9421.26,
+                "orders_count": 72
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 8228.54,
+                "orders_count": 87
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 11730.6,
+                "orders_count": 93
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 19880.37,
+                "orders_count": 149
+            }
+        ],
+        "store_image": "277592.png"
+    },
+    {
+        "Outlet_ID": "351352",
+        "Distributor_Name": "351352-Rudra Agency",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Dhakuria 3",
+        "latitude": 22.5077272,
+        "longitude": 88.3774024,
+        "avg_monthly_order_value_inr": 5537.64,
+        "growth_rate_percentage": -40.61,
+        "Segment_Name": "Gold",
+        "unique_sku_count": 16,
+        "sku_list": [
+            "KG Mustard Oil 410 gm Pch-Strong",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Soyabean Oil 160 gm Pet",
+            "Haldi Powder 50 g",
+            "Posto Whole 8 g (MRP 20)",
+            "Amrit? Atta 5Kg Pouch",
+            "KG Mustard Oil 410 gm Pet-Strong",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Soyabean Oil 365 gm Pet",
+            "Dhania Powder 50 g",
+            "Ricebran Oil 730 gm Pch",
+            "Sunflower Oil 780 gm Pch (12 pc)",
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "Advans Mini Nutri Soya Chunk Rs 10 (33g)",
+            "Chilli Powder 50 g"
+        ],
+        "aso_details": {
+            "ASO": "Biswadeep Bhattacharya"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 1906.8,
+                "orders_count": 24
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 6897.75,
+                "orders_count": 116
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 8373.23,
+                "orders_count": 106
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 4972.8,
+                "orders_count": 78
+            }
+        ],
+        "store_image": "351352.png"
+    },
+    {
+        "Outlet_ID": "452169",
+        "Distributor_Name": "452169-MAXXBEE Agro Products",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "B.L.Saha Road",
+        "latitude": 22.4995351,
+        "longitude": 88.3336513,
+        "avg_monthly_order_value_inr": 7386.39,
+        "growth_rate_percentage": 126.46,
+        "Segment_Name": "Gold",
+        "unique_sku_count": 21,
+        "sku_list": [
+            "KG Mustard Oil 900 gm Pet-Strong",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 410 gm Pch-Strong",
+            "KG Mustard Oil 825 gm Pet-Strong",
+            "KG Mustard Oil 410 gm Pet-Strong",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Soyabean Oil 825 gm Pet",
+            "Soyabean Oil 365 gm Pch",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Haldi Powder 50 g",
+            "Ricebran Oil 825 gm Pch",
+            "Sunflower Oil 825 gm Pch",
+            "Advans Nutri Soya Chunk 1 kg (MRP180)",
+            "Amrit? Atta 1Kg Pouch",
+            "Ricebran Oil 730 gm Pch",
+            "Sunflower Oil 780 gm Pch (12 pc)",
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "Advans Nutri Soya Chunk Rs 15 (80g)",
+            "Chilli Powder 50 g",
+            "Amrit? Maida 1Kg Pouch",
+            "Amrit? Maida 500 Gm Pouch"
+        ],
+        "aso_details": {
+            "ASO": "Debjit Sen"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 8391.17,
+                "orders_count": 98
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 6756.76,
+                "orders_count": 94
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 4410.24,
+                "orders_count": 32
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 9987.39,
+                "orders_count": 114
+            }
+        ],
+        "store_image": "452169.png"
+    },
+    {
+        "Outlet_ID": "664",
+        "Distributor_Name": "664-Hriday Enterprise",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Bagmari - 1",
+        "latitude": 22.58163875,
+        "longitude": 88.38408373,
+        "avg_monthly_order_value_inr": 7571.96,
+        "growth_rate_percentage": -8.99,
+        "Segment_Name": "Gold",
+        "unique_sku_count": 20,
+        "sku_list": [
+            "Amrit? Atta 5Kg Pouch",
+            "Amrit? Maida 1Kg Pouch",
+            "Amrit? Suji 500 Gm Pouch",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "Soyabean Oil 160 gm Pet",
+            "Jeera Powder 50 g",
+            "Ricebran Oil 730 gm Pch",
+            "Sunflower Oil 780 gm Pch (12 pc)",
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "Amrit? Atta 1Kg Pouch",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Advans Mini Nutri Soya Chunk Rs 10 (33g)",
+            "Amrit? Suji 200 Gm Pouch",
+            "Amrit? Besan 200 Gm Pouch",
+            "Spl Dalna Masala 7 g",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Haldi Powder 50 g",
+            "Posto Whole 23 g (MRP 55)",
+            "Chilli Powder 50 g",
+            "Haldi Powder 500 g"
+        ],
+        "aso_details": {
+            "ASO": "Abhishek Kumar Singh"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 6522.62,
+                "orders_count": 72
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 8467.52,
+                "orders_count": 85
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 8008.88,
+                "orders_count": 150
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 7288.8,
+                "orders_count": 114
+            }
+        ],
+        "store_image": "664.jpg"
+    },
+    {
+        "Outlet_ID": "885",
+        "Distributor_Name": "885-S. K. ",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Bansdroni",
+        "latitude": 22.47604962,
+        "longitude": 88.35954554,
+        "avg_monthly_order_value_inr": 10528.76,
+        "growth_rate_percentage": -65.08,
+        "Segment_Name": "Gold",
+        "unique_sku_count": 24,
+        "sku_list": [
+            "KG Mustard Oil 900 gm Pet-Super Strong",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Haldi Powder 50 g",
+            "Jeera Powder 50 g",
+            "Posto Whole 8 g (MRP 20)",
+            "Posto Whole 50 g (MRP 130)",
+            "Ricebran Oil 825 gm Pch",
+            "Sunflower Oil 825 gm Pch",
+            "Amrit? Atta 5Kg Pouch",
+            "Amrit? Maida 1Kg Pouch",
+            "Amrit? Suji 200 Gm Pouch",
+            "Soyabean Oil 730 gm Pch",
+            "Soyabean Oil 160 gm Pet",
+            "Ricebran Oil 730 gm Pch",
+            "Advans Mini Nutri Soya Chunk Rs 10 (33g)",
+            "Amrit? Atta 1Kg Pouch",
+            "Amrit? Suji 500 Gm Pouch",
+            "Soyabean Oil 365 gm Pch",
+            "Dhania Powder 50 g",
+            "Haldi Powder 500 g",
+            "Black Paper Whole 5g MRP 10",
+            "Jeera Whole 14g MRP 10",
+            "Kala Jeera Whole 18g MRP 10"
+        ],
+        "aso_details": {
+            "ASO": "Ganesh Naskar"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 15424.19,
+                "orders_count": 212
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 4362.24,
+                "orders_count": 32
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 16550.07,
+                "orders_count": 178
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 5778.55,
+                "orders_count": 67
+            }
+        ],
+        "store_image": "885.png"
+    },
+    {
+        "Outlet_ID": "351754",
+        "Distributor_Name": "351754-Swasti Enterprise",
+        "Outlet_Type": "General Trade - Wholesale",
+        "Route_Name": "Boral,Southkolkata1",
+        "latitude": 22.4628948,
+        "longitude": 88.3786364,
+        "avg_monthly_order_value_inr": 2847940.26,
+        "growth_rate_percentage": 294.65,
+        "Segment_Name": "Diamond",
+        "unique_sku_count": 4,
+        "sku_list": [
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Ricebran Oil 730 gm Pch",
+            "Sunflower Oil 780 gm Pch (12 pc)"
+        ],
+        "aso_details": {
+            "ASO": "Shyamal Sarkhel"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 3812483.42,
+                "orders_count": 25916
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 2749146.7,
+                "orders_count": 18980
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 976481.5,
+                "orders_count": 7300
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 3853649.4,
+                "orders_count": 27240
+            }
+        ],
+	"store_image": "885.png"
+    },
+    {
+        "Outlet_ID": "147080",
+        "Distributor_Name": "147080-MAXXBEE Agro Products",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Chetla",
+        "latitude": 22.51833385,
+        "longitude": 88.3380235,
+        "avg_monthly_order_value_inr": 3182.96,
+        "growth_rate_percentage": 59.61,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 11,
+        "sku_list": [
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "KG Mustard Oil 410 gm Pet-Strong",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Soyabean Oil 410 gm Pet",
+            "Amrit? Atta 1Kg Pouch",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "Chilli Powder 50 g",
+            "Haldi Powder 50 g",
+            "Amrit? Atta 5Kg Pouch",
+            "Advans Nutri Soya Chunk 1 kg (MRP180)",
+            "Posto Whole 8 g (MRP 20)"
+        ],
+        "aso_details": {
+            "ASO": "Debjit Sen"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 168.72,
+                "orders_count": 24
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 1543.01,
+                "orders_count": 28
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 4244.92,
+                "orders_count": 89
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 6775.21,
+                "orders_count": 80
+            }
+        ],
+        "store_image": "147080.jpg"
+    },
+    {
+        "Outlet_ID": "16877",
+        "Distributor_Name": "16877-Abhinandan",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Belgachia",
+        "latitude": 22.6049966,
+        "longitude": 88.3838169,
+        "avg_monthly_order_value_inr": 4128.44,
+        "growth_rate_percentage": -37.48,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 9,
+        "sku_list": [
+            "Blend Spice Combo (Meat+Chicken)",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 410 gm Pch-Strong",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Soyabean Oil 365 gm Pch",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Dhania Powder 50 g",
+            "Ricebran Oil 730 gm Pch",
+            "Posto Whole 8 g (MRP 20)"
+        ],
+        "aso_details": {
+            "ASO": "Vivek Agarwal"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 140.98,
+                "orders_count": 1
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 5393.05,
+                "orders_count": 77
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 6755.88,
+                "orders_count": 56
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 4223.86,
+                "orders_count": 46
+            }
+        ],
+        "store_image": "16877.jpg"
+    },
+    {
+        "Outlet_ID": "23704",
+        "Distributor_Name": "23704-Saha And Co",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Thetre Road",
+        "latitude": 22.53913421,
+        "longitude": 88.34552865,
+        "avg_monthly_order_value_inr": 1189.66,
+        "growth_rate_percentage": 0.0,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 7,
+        "sku_list": [
+            "Ricebran Oil 730 gm Pch",
+            "Sunflower Oil 780 gm Pch (12 pc)",
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "Amrit? Atta 1Kg Pouch",
+            "Amrit? Maida 1Kg Pouch",
+            "Amrit? Suji 500 Gm Pouch",
+            "Amrit? Suji 200 Gm Pouch"
+        ],
+        "aso_details": {
+            "ASO": "Debjit Sen"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 2722.41,
+                "orders_count": 50
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 2036.24,
+                "orders_count": 34
+            }
+        ],
+        "store_image": "23704.jpg"
+    },
+    {
+        "Outlet_ID": "408164",
+        "Distributor_Name": "408164-Saha And Co",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Jagubazar",
+        "latitude": 22.53338822,
+        "longitude": 88.34657673,
+        "avg_monthly_order_value_inr": 1068.8,
+        "growth_rate_percentage": 0.0,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 2,
+        "sku_list": [
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "Sunflower Oil 780 gm Pch (12 pc)"
+        ],
+        "aso_details": {
+            "ASO": "Ghulam Sadique"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 4275.2,
+                "orders_count": 28
+            }
+        ],
+        "store_image": "408164.jpg"
+    },
+    {
+        "Outlet_ID": "437694",
+        "Distributor_Name": "437694-Abhinandan",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Dum Dum 2",
+        "latitude": 22.61943969,
+        "longitude": 88.39768924,
+        "avg_monthly_order_value_inr": 4822.64,
+        "growth_rate_percentage": 0.91,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 11,
+        "sku_list": [
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Ricebran Oil 825 gm Pch",
+            "Sunflower Oil 825 gm Pch",
+            "Haldi Powder 50 g",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 410 gm Pch-Strong",
+            "Ricebran Oil 730 gm Pch",
+            "Soyabean Oil 160 gm Pet",
+            "Soyabean Oil 365 gm Pch",
+            "Posto Whole 8 g (MRP 20)"
+        ],
+        "aso_details": {
+            "ASO": "Vivek Agarwal"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 5508.62,
+                "orders_count": 88
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 2603.66,
+                "orders_count": 52
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 5563.86,
+                "orders_count": 64
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 5614.44,
+                "orders_count": 68
+            }
+        ],
+        "store_image": "437694.jpg"
+    },
+    {
+        "Outlet_ID": "474688",
+        "Distributor_Name": "474688-Joy Ram Trading",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "Kalindi",
+        "latitude": 22.612835,
+        "longitude": 88.3986208,
+        "avg_monthly_order_value_inr": 2319.14,
+        "growth_rate_percentage": -4.72,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 5,
+        "sku_list": [
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Jeera Powder 50 g",
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "Advans Mini Nutri Soya Chunk Rs 10 (33g)"
+        ],
+        "aso_details": {
+            "ASO": "Kunal Roy"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 4750.3,
+                "orders_count": 52
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 4526.24,
+                "orders_count": 56
+            }
+        ],
+        "store_image": "474688.jpg"
+    },
+    {
+        "Outlet_ID": "475463",
+        "Distributor_Name": "475463-Joy Ram Trading",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "H M V Road 2",
+        "latitude": 22.6423432,
+        "longitude": 88.4201981,
+        "avg_monthly_order_value_inr": 1313.88,
+        "growth_rate_percentage": 2439.91,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 6,
+        "sku_list": [
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Sunflower Oil 780 gm Pch (12 pc)",
+            "Advans Nutri Soya Chunk Rs 10 (33g)",
+            "Advans Mini Nutri Soya Chunk Rs 10 (33g)",
+            "Amrit? Atta 1Kg Pouch",
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)"
+        ],
+        "aso_details": {
+            "ASO": "Kunal Roy"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 199.08,
+                "orders_count": 6
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 5056.45,
+                "orders_count": 86
+            }
+        ],
+        "store_image": "475463.jpg"
+    },
+    {
+        "Outlet_ID": "475509",
+        "Distributor_Name": "475509-Joy Ram Trading",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "H M V Road 2",
+        "latitude": 22.64344509,
+        "longitude": 88.42555538,
+        "avg_monthly_order_value_inr": 639.19,
+        "growth_rate_percentage": 0.0,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 4,
+        "sku_list": [
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 410 gm Pet-Strong",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Haldi Powder 50 g"
+        ],
+        "aso_details": {
+            "ASO": "Kunal Roy"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 2556.76,
+                "orders_count": 46
+            }
+        ],
+        "store_image": "475509.jpg"
+    },
+    {
+        "Outlet_ID": "475622",
+        "Distributor_Name": "475622-Joy Ram Trading",
+        "Outlet_Type": "General Trade - Retail",
+        "Route_Name": "H M V Road 2",
+        "latitude": 22.6208681,
+        "longitude": 88.4073371,
+        "avg_monthly_order_value_inr": 1045.01,
+        "growth_rate_percentage": 0.0,
+        "Segment_Name": "Silver",
+        "unique_sku_count": 6,
+        "sku_list": [
+            "KG Mustard Oil 825 gm Pch-Strong (16 Pc)",
+            "KG Mustard Oil 410 gm Pch-Strong",
+            "KG Mustard Oil 160 gm Pet-Strong",
+            "Soyabean Oil 365 gm Pch",
+            "Soyabean Oil 730 gm Pch (16 pc)",
+            "Posto Whole 8 g (MRP 20)"
+        ],
+        "aso_details": {
+            "ASO": "Kunal Roy"
+        },
+        "last_audit_date": "2026-04-10",
+        "monthly_sales_history": [
+            {
+                "month": "Dec 2025",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Jan 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Feb 2026",
+                "sales_value_inr": 0.0,
+                "orders_count": 0
+            },
+            {
+                "month": "Mar 2026",
+                "sales_value_inr": 4180.02,
+                "orders_count": 56
+            }
+        ],
+        "store_image": "475622.jpg"
+    }
+]

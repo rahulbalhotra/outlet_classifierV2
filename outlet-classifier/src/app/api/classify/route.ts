@@ -44,10 +44,11 @@ function initializeImageCache() {
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { aso_name, store_name, store_type, location, avg_monthly_order_value_inr, image, apiKey, modelName } = body;
+        console.log('Classify Request:', { ...body, image: body.image ? 'present' : 'absent' });
+        const { aso_name, store_name, store_type, route_name, avg_monthly_order_value_inr, image, apiKey, modelName } = body;
 
         // Load store data
-        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v2.json');
+        const dataPath = path.join(process.cwd(), 'src', 'data', 'retail_store_data_v3.json');
         const dataStr = fs.readFileSync(dataPath, 'utf8');
         const stores = JSON.parse(dataStr);
 
@@ -68,14 +69,16 @@ export async function POST(req: NextRequest) {
                 if (identifiedStore) {
                     finalSource = "Dataset Match (Deterministic)";
                     resultData = {
-                        store_name: identifiedStore.store_name,
-                        store_type: identifiedStore.store_type,
-                        location: identifiedStore.location,
+                        store_name: identifiedStore.Distributor_Name || identifiedStore.store_name,
+                        store_type: identifiedStore.Outlet_Type || identifiedStore.store_type,
+                        route_name: identifiedStore.Route_Name || identifiedStore.route_name,
                         avg_monthly_order_value_inr: identifiedStore.avg_monthly_order_value_inr,
-                        segmentation: identifiedStore.segmentation,
-                        morphology_analysis: `Exact match found in visual dataset. Identified as ${identifiedStore.store_name} standard format.`,
+                        segmentation: identifiedStore.Segment_Name || identifiedStore.segmentation,
+                        assumed_sku_count: identifiedStore.unique_sku_count,
+                        assumed_sku_list: identifiedStore.sku_list,
+                        morphology_analysis: `Exact match found in visual dataset. Identified as ${identifiedStore.Outlet_ID} standard format.`,
                         confidence_score: 100,
-                        matched_store_id: identifiedStore.store_id
+                        matched_store_id: identifiedStore.Outlet_ID
                     };
                 }
             }
@@ -83,8 +86,10 @@ export async function POST(req: NextRequest) {
 
         // Filter for neighbors/context
         let similarStores = stores.filter((s: any) =>
-            s.location.toLowerCase() === location.toLowerCase() ||
-            s.aso_details?.aso_name === aso_name
+            s && (
+                ((s.Route_Name || s.route_name || "").toString().trim().toLowerCase() === (route_name || "").toString().trim().toLowerCase()) ||
+                (s.aso_details?.ASO === aso_name)
+            )
         );
 
         let typeSimilarStores = similarStores.filter((s: any) => s.store_type === store_type);
@@ -103,7 +108,7 @@ export async function POST(req: NextRequest) {
                 const peerContext = displayResults.map((s: any) => ({
                     name: s.store_name,
                     type: s.store_type,
-                    location: s.location,
+                    route: s.Route_Name || s.route_name,
                     segmentation: s.segmentation,
                     avg_val: s.avg_monthly_order_value_inr
                 }));
@@ -115,10 +120,12 @@ export async function POST(req: NextRequest) {
                         .replace(/{{peer_stores}}/g, JSON.stringify(peerContext, null, 2))
                         .replace(/{{store_name}}/g, store_name)
                         .replace(/{{store_type}}/g, store_type)
-                        .replace(/{{location}}/g, location)
-                        .replace(/{{estimated_value}}/g, String(avg_monthly_order_value_inr));
+                        .replace(/{{location}}/g, route_name)
+                        .replace(/{{estimated_value}}/g, String(avg_monthly_order_value_inr))
+                        .replace(/{{user_sku_count}}/g, String(body.estimated_sku_count || 'Unknown'))
+                        .replace(/{{user_sku_tags}}/g, body.sku_tags || 'None');
                 } catch (e) {
-                    promptText = `Classify this store: ${store_name}, Type: ${store_type}, Location: ${location}. Peer data: ${JSON.stringify(peerContext)}`;
+                    promptText = `Classify this store: ${store_name}, Type: ${store_type}, Route: ${route_name}. Peer data: ${JSON.stringify(peerContext)}`;
                 }
 
                 const parts: any[] = [promptText];
@@ -153,10 +160,12 @@ export async function POST(req: NextRequest) {
             resultData = {
                 store_name,
                 store_type,
-                location,
+                route_name,
                 avg_monthly_order_value_inr: Math.round(areaAvg),
                 segmentation: suggestedSegmentation,
-                morphology_analysis: `Safety Fallback: Based on regional benchmarks in ${location}, this store shows stable potential.`,
+                assumed_sku_count: 15,
+                assumed_sku_list: ["Universal FMCG Pack", "General Groceries", "Regional Staples"],
+                morphology_analysis: `Safety Fallback: Based on regional benchmarks on ${route_name}, this store shows stable potential.`,
                 confidence_score: 85
             };
         }
@@ -168,20 +177,31 @@ export async function POST(req: NextRequest) {
                 source: finalSource
             },
             aiError: finalSource.includes("Fallback") ? "Gemini Error: Using rule-based fallback." : null,
-            similar_stores: (identifiedStore ? [identifiedStore, ...displayResults.filter((s: any) => s.store_id !== identifiedStore.store_id)] : displayResults).slice(0, 4).map((s: any) => {
+            similar_stores: (identifiedStore ? [identifiedStore, ...displayResults.filter((s: any) => s.Outlet_ID !== identifiedStore.Outlet_ID)] : displayResults).slice(0, 4).map((s: any) => {
                 const history = (s.monthly_sales_history || []) as Array<Record<string, unknown>>;
                 const totalSales = history.reduce((acc: number, entry) => acc + (Number(entry.sales_value_inr) || 0), 0);
                 const monthWiseSales: Record<string, number> = {};
                 history.forEach((entry) => {
                     monthWiseSales[String(entry.month)] = Number(entry.sales_value_inr) || 0;
                 });
-                return { ...s, totalSales, month_wise_sales: monthWiseSales };
+                return {
+                    store_id: s.Outlet_ID || s.store_id,
+                    store_name: s.Distributor_Name || s.store_name,
+                    store_type: s.Outlet_Type || s.store_type,
+                    route_name: s.Route_Name || s.route_name,
+                    segmentation: s.Segment_Name || s.segmentation,
+                    avg_monthly_order_value_inr: s.avg_monthly_order_value_inr,
+                    growth_rate_percentage: s.growth_rate_percentage,
+                    totalSales,
+                    month_wise_sales: monthWiseSales,
+                    image: s.store_image ? `/api/image?store_id=${s.Outlet_ID}` : null
+                };
             })
         };
 
         return NextResponse.json(finalResponse, { status: 200 });
     } catch (error: any) {
         console.error('Classify API Error:', error);
-        return NextResponse.json({ error: 'Failed' }, { status: 500 });
+        return new Response(`Internal Server Error: ${error.message}`, { status: 500 });
     }
 }

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlet Sales Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .kpi-icon {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2));
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: #60a5fa;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 0.75rem;
+            padding: 0.5rem 1rem;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        select:focus {
+            border-color: #60a5fa;
+        }
+
+        select option {
+            background: #1e293b;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="p-4 md:p-8">
+    <header class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-4xl font-bold mb-2 gradient-text">Sales Strategy Dashboard</h1>
+            <p class="text-slate-400">Semantic Layer & Outlet Segmentation Insights</p>
+        </div>
+        <div class="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-2xl shadow-xl">
+            <div class="text-right">
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Current View</p>
+                <p class="font-medium text-slate-200" id="current-month-view">Filtered Insights</p>
+            </div>
+            <div
+                class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <i class="fas fa-filter text-white"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filters Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div>
+            <label class="text-xs font-semibold text-slate-500 uppercase mb-2 block">Category</label>
+            <select id="filter-category" onchange="updateDashboard()">
+                <option value="">All Categories</option>
+            </select>
+        </div>
+        <div>
+            <label class="text-xs font-semibold text-slate-500 uppercase mb-2 block">Region</label>
+            <select id="filter-region" onchange="updateDashboard()">
+                <option value="">All Regions</option>
+            </select>
+        </div>
+        <div>
+            <label class="text-xs font-semibold text-slate-500 uppercase mb-2 block">Segment</label>
+            <select id="filter-segment" onchange="updateDashboard()">
+                <option value="">All Segments</option>
+            </select>
+        </div>
+        <div>
+            <label class="text-xs font-semibold text-slate-500 uppercase mb-2 block">ASO</label>
+            <select id="filter-aso" onchange="updateDashboard()">
+                <option value="">All ASOs</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- KPI Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="glass-card p-6 flex items-center gap-5">
+            <div class="kpi-icon"><i class="fas fa-indian-rupee-sign text-xl"></i></div>
+            <div>
+                <p class="text-sm text-slate-400 font-medium">Total Sales</p>
+                <h3 class="text-2xl font-bold" id="kpi-total-sales">₹0</h3>
+            </div>
+        </div>
+        <div class="glass-card p-6 flex items-center gap-5">
+            <div class="kpi-icon" style="color: #34d399; background: rgba(52, 211, 153, 0.1);"><i
+                    class="fas fa-box text-xl"></i></div>
+            <div>
+                <p class="text-sm text-slate-400 font-medium">Total Volume</p>
+                <h3 class="text-2xl font-bold" id="kpi-total-volume">0 KG/L</h3>
+            </div>
+        </div>
+        <div class="glass-card p-6 flex items-center gap-5">
+            <div class="kpi-icon" style="color: #fbbf24; background: rgba(251, 191, 36, 0.1);"><i
+                    class="fas fa-store text-xl"></i></div>
+            <div>
+                <p class="text-sm text-slate-400 font-medium">Active Outlets</p>
+                <h3 class="text-2xl font-bold" id="kpi-total-outlets">0</h3>
+            </div>
+        </div>
+        <div class="glass-card p-6 flex items-center gap-5">
+            <div class="kpi-icon" style="color: #f87171; background: rgba(248, 113, 113, 0.1);"><i
+                    class="fas fa-tags text-xl"></i></div>
+            <div>
+                <p class="text-sm text-slate-400 font-medium">Unique SKUs</p>
+                <h3 class="text-2xl font-bold" id="kpi-total-skus">0</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div class="lg:col-span-2 glass-card p-6">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i
+                    class="fas fa-chart-bar text-blue-400"></i>Sales Trend</h2>
+            <div class="chart-container"><canvas id="salesTrendChart"></canvas></div>
+        </div>
+        <div class="glass-card p-6">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i
+                    class="fas fa-chart-pie text-purple-400"></i>Category Mix</h2>
+            <div class="chart-container"><canvas id="categoryChart"></canvas></div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="glass-card p-6">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i
+                    class="fas fa-map-location-dot text-emerald-400"></i>Regional Performance</h2>
+            <div class="chart-container"><canvas id="regionChart"></canvas></div>
+        </div>
+        <div class="glass-card p-6">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i
+                    class="fas fa-users-viewfinder text-amber-400"></i>Outlet Segmentation</h2>
+            <div class="chart-container"><canvas id="segmentChart"></canvas></div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="glass-card p-6">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i class="fas fa-trophy text-yellow-400"></i>Top
+                SKUs</h2>
+            <div id="skus-list" class="space-y-3"></div>
+        </div>
+        <div class="glass-card p-6">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2"><i
+                    class="fas fa-handshake text-blue-400"></i>Distributors</h2>
+            <div id="distributors-list" class="space-y-3"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "http://localhost:8001/api";
+        let charts = {};
+
+        Chart.defaults.color = "#94a3b8";
+        Chart.defaults.font.family = "'Outfit', sans-serif";
+
+        async function fetchData(endpoint, params = {}) {
+            const query = new URLSearchParams(params).toString();
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}?${query}`);
+                return await response.json();
+            } catch (error) {
+                console.error(`Error fetching ${endpoint}:`, error);
+                return null;
+            }
+        }
+
+        function formatCurrency(value) {
+            if (value >= 10000000) return `₹${(value / 10000000).toFixed(2)} Cr`;
+            if (value >= 100000) return `₹${(value / 100000).toFixed(2)} Lac`;
+            return `₹${value.toLocaleString('en-IN')}`;
+        }
+
+        function formatNumber(value) { return value.toLocaleString('en-IN'); }
+
+        async function populateFilters() {
+            const options = await fetchData('/filters');
+            if (options) {
+                const fill = (id, list) => {
+                    const el = document.getElementById(id);
+                    list.forEach(item => {
+                        const opt = document.createElement('option');
+                        opt.value = opt.textContent = item;
+                        el.appendChild(opt);
+                    });
+                };
+                fill('filter-category', options.categories);
+                fill('filter-region', options.regions);
+                fill('filter-segment', options.segments);
+                fill('filter-aso', options.asos);
+            }
+        }
+
+        function getActiveFilters() {
+            return {
+                category: document.getElementById('filter-category').value,
+                region: document.getElementById('filter-region').value,
+                segment: document.getElementById('filter-segment').value,
+                aso: document.getElementById('filter-aso').value
+            };
+        }
+
+        async function updateDashboard() {
+            const filters = getActiveFilters();
+
+            // KPIs
+            const kpis = await fetchData('/kpis', filters);
+            if (kpis) {
+                document.getElementById('kpi-total-sales').textContent = formatCurrency(kpis.total_sales);
+                document.getElementById('kpi-total-volume').textContent = `${formatNumber(kpis.total_volume)} KG/L`;
+                document.getElementById('kpi-total-outlets').textContent = formatNumber(kpis.total_outlets);
+                document.getElementById('kpi-total-skus').textContent = formatNumber(kpis.total_skus);
+            }
+
+            // Sales Trend (Bar Chart)
+            const trendData = await fetchData('/charts/sales-trend', filters);
+            if (trendData) {
+                if (charts.trend) charts.trend.destroy();
+                charts.trend = new Chart(document.getElementById('salesTrendChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: trendData.map(d => d.month),
+                        datasets: [{
+                            label: 'Monthly Sales',
+                            data: trendData.map(d => d.sales),
+                            backgroundColor: 'rgba(96, 165, 250, 0.6)',
+                            borderColor: '#60a5fa',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+
+            // Category Distribution
+            const catData = await fetchData('/charts/category-distribution', filters);
+            if (catData) {
+                if (charts.category) charts.category.destroy();
+                charts.category = new Chart(document.getElementById('categoryChart'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: catData.map(d => d.category),
+                        datasets: [{
+                            data: catData.map(d => d.sales),
+                            backgroundColor: ['#60a5fa', '#c084fc', '#34d399', '#fbbf24', '#f87171', '#818cf8'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: {
+                            legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 10 } },
+                            tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${formatCurrency(ctx.raw)} (${catData[ctx.dataIndex].percentage}%)` } }
+                        }
+                    }
+                });
+            }
+
+            // Regional Sales
+            const regData = await fetchData('/charts/region-sales', filters);
+            if (regData) {
+                if (charts.region) charts.region.destroy();
+                charts.region = new Chart(document.getElementById('regionChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: regData.map(d => d.region),
+                        datasets: [{ data: regData.map(d => d.sales), backgroundColor: 'rgba(52, 211, 153, 0.6)', borderRadius: 8 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+
+            // Segmentation
+            const segData = await fetchData('/charts/segmentation', filters);
+            if (segData) {
+                if (charts.segment) charts.segment.destroy();
+                charts.segment = new Chart(document.getElementById('segmentChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: segData.map(d => d.segment.substring(0, 15) + '...'),
+                        datasets: [{ label: 'Unique Outlets', data: segData.map(d => d.unique_outlets), backgroundColor: 'rgba(251, 191, 36, 0.6)', borderRadius: 8 }]
+                    },
+                    options: {
+                        indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: (ctx) => `Outlets: ${formatNumber(ctx.raw)} | Sales: ${formatCurrency(segData[ctx.dataIndex].sales)}` } }
+                        }
+                    }
+                });
+            }
+
+            // Lists
+            const updateList = async (id, endpoint, labelField, valueField, colorClass) => {
+                const data = await fetchData(endpoint, filters);
+                const el = document.getElementById(id);
+                el.innerHTML = '';
+                if (data) {
+                    data.forEach((item, index) => {
+                        const row = document.createElement('div');
+                        row.className = 'flex items-center justify-between p-2 bg-white/5 rounded-xl border border-white/5';
+                        row.innerHTML = `<div class="flex items-center gap-3">
+                            <span class="w-7 h-7 flex items-center justify-center ${colorClass} rounded-lg font-bold text-xs">${index + 1}</span>
+                            <span class="text-sm text-slate-300 truncate max-w-[150px]">${item[labelField]}</span>
+                        </div><span class="font-bold text-slate-200 text-sm">${formatCurrency(item[valueField])}</span>`;
+                        el.appendChild(row);
+                    });
+                }
+            };
+            updateList('skus-list', '/charts/top-skus', 'sku', 'sales', 'bg-blue-500/20 text-blue-400');
+            updateList('distributors-list', '/charts/top-distributors', 'distributor', 'sales', 'bg-purple-500/20 text-purple-400');
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await populateFilters();
+            await updateDashboard();
+        });
+    </script>
+</body>
+
+</html>

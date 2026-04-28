@@ -7,6 +7,30 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url);
         const preferredType = searchParams.get('type') || '';
         const index = parseInt(searchParams.get('index') || '0');
+        const store_id = searchParams.get('store_id');
+
+        if (store_id) {
+            const baseFolder = path.join(process.cwd(), '..', 'notebooks', 'Store Image Database');
+            const searchFolders = ['golds', 'Silver'];
+            const possibleExtensions = ['.png', '.jpg'];
+
+            for (const folder of searchFolders) {
+                for (const ext of possibleExtensions) {
+                    const p = path.join(baseFolder, folder, `${store_id}${ext}`);
+                    if (fs.existsSync(p)) {
+                        const fileBuffer = fs.readFileSync(p);
+                        const contentType = ext === '.png' ? 'image/png' : 'image/jpeg';
+                        return new NextResponse(fileBuffer, {
+                            headers: {
+                                'Content-Type': contentType,
+                                'Cache-Control': 'public, max-age=31536000, immutable'
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
         const storeId = `STR_${index.toString().padStart(3, '0')}`;
 
         const baseDir = path.join(process.cwd(), 'src', 'store_dataset_jpeg');

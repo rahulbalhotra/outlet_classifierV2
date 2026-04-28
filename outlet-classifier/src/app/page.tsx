@@ -36,8 +36,8 @@ export default function Home() {
           <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain shadow-sm rounded-lg p-1 bg-red-50 shrink-0" />
           {!isSidebarCollapsed && (
             <div className="flex flex-col whitespace-nowrap">
-              <span className="font-extrabold text-gray-900 text-base leading-tight">OnGround</span>
-              <span className="text-red-600 text-xs font-bold tracking-widest uppercase">Assist</span>
+              <span className="font-extrabold text-gray-900 text-base leading-tight">Outlet</span>
+              <span className="text-red-600 text-xs font-bold tracking-widest uppercase">Classifier</span>
             </div>
           )}
         </div>
